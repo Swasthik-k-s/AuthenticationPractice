@@ -17,12 +17,10 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func logoutPressed(_ sender: Any) {
-        let firebaseAuth = Auth.auth()
-        navigateLoginScreen()
-        do {
-          try firebaseAuth.signOut()
-        } catch let signOutError as NSError {
-          print("Error signing out: %@", signOutError)
+        let isSignedOut = NetworkManager.shared.signout()
+        
+        if isSignedOut {
+            navigateLoginScreen()
         }
     }
     

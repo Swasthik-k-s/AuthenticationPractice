@@ -57,11 +57,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="38" translatesAutoresizingMaskIntoConstraints="NO" id="9Ys-MM-V41">
-                                <rect key="frame" x="50" y="363.5" width="314" height="169"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="9Ys-MM-V41">
+                                <rect key="frame" x="50" y="343" width="314" height="210"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQA-je-2YO">
-                                        <rect key="frame" x="0.0" y="0.0" width="314" height="31"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="314" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="6y7-ny-sIz"/>
+                                        </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Sign In With Credentials">
                                             <backgroundConfiguration key="background">
@@ -73,25 +76,37 @@
                                             <segue destination="fAU-Gi-rai" kind="show" id="4fh-DY-DDa"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yIO-hv-uGB">
-                                        <rect key="frame" x="0.0" y="69" width="314" height="31"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9tf-zw-8hY">
+                                        <rect key="frame" x="0.0" y="80" width="314" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="eoE-3V-0oj"/>
+                                        </constraints>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Sign In With Facebook ">
+                                        <buttonConfiguration key="configuration" style="plain" title="Sign In With Google">
                                             <backgroundConfiguration key="background">
-                                                <color key="backgroundColor" systemColor="linkColor"/>
+                                                <color key="backgroundColor" red="0.85882352941176465" green="0.26666666666666666" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
                                             </backgroundConfiguration>
                                             <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="googleSignInPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cJR-Bl-8cc"/>
+                                        </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Tv-Td-SIB">
-                                        <rect key="frame" x="0.0" y="138" width="314" height="31"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mkw-5Q-TMX">
+                                        <rect key="frame" x="0.0" y="160" width="314" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="25a-i2-2N2"/>
+                                        </constraints>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Sign In With Gmail">
+                                        <buttonConfiguration key="configuration" style="plain" title="Sign In With Facebook">
                                             <backgroundConfiguration key="background">
-                                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                                                <color key="backgroundColor" red="0.25882352941176467" green="0.40392156862745099" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
                                             </backgroundConfiguration>
                                             <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="facebookSignInPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pu0-37-cN8"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -100,16 +115,16 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="9Ys-MM-V41" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="0om-uR-6gC"/>
-                            <constraint firstItem="9Ys-MM-V41" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="KeF-yV-JA2"/>
-                            <constraint firstItem="9Ys-MM-V41" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Sno-H3-Or0"/>
+                            <constraint firstItem="9Ys-MM-V41" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7CF-HN-lC6"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9Ys-MM-V41" secondAttribute="trailing" constant="50" id="rWT-F9-wAw"/>
+                            <constraint firstItem="9Ys-MM-V41" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="wFt-iq-dxn"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="oRS-3f-26y"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="812" y="80"/>
+            <point key="canvasLocation" x="811.59420289855075" y="79.6875"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="oIB-Pf-ZUc">
@@ -267,9 +282,6 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

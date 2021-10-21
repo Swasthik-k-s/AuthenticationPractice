@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		87BCA8602070593CD0DF1DF4 /* Pods_AuthenticationPractice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF14835CE2CA975C913B4CBE /* Pods_AuthenticationPractice.framework */; };
+		FC3E2B7F27211B7000BF3E6F /* AuthenticationPracticeValidatation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3E2B7E27211B7000BF3E6F /* AuthenticationPracticeValidatation.swift */; };
+		FC64D008272077020067BDCA /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC64D007272077020067BDCA /* NetworkManager.swift */; };
 		FCF5927C271E8F4300952150 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF5927B271E8F4300952150 /* AppDelegate.swift */; };
 		FCF5927E271E8F4300952150 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF5927D271E8F4300952150 /* SceneDelegate.swift */; };
 		FCF59280271E8F4300952150 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF5927F271E8F4300952150 /* ViewController.swift */; };
@@ -21,10 +23,23 @@
 		FCF5929C271EE67C00952150 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF5929B271EE67C00952150 /* Reusable.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		FC3E2B8027211B7000BF3E6F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FCF59270271E8F4300952150 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FCF59277271E8F4300952150;
+			remoteInfo = AuthenticationPractice;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		AACA5EC92F1BADF764ECF338 /* Pods-AuthenticationPractice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AuthenticationPractice.release.xcconfig"; path = "Target Support Files/Pods-AuthenticationPractice/Pods-AuthenticationPractice.release.xcconfig"; sourceTree = "<group>"; };
 		C39D1A8738229A31D9FB902E /* Pods-AuthenticationPractice.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AuthenticationPractice.debug.xcconfig"; path = "Target Support Files/Pods-AuthenticationPractice/Pods-AuthenticationPractice.debug.xcconfig"; sourceTree = "<group>"; };
 		CF14835CE2CA975C913B4CBE /* Pods_AuthenticationPractice.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AuthenticationPractice.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC3E2B7C27211B7000BF3E6F /* AuthenticationPracticeValidatation.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuthenticationPracticeValidatation.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC3E2B7E27211B7000BF3E6F /* AuthenticationPracticeValidatation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationPracticeValidatation.swift; sourceTree = "<group>"; };
+		FC64D007272077020067BDCA /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		FCF59278271E8F4300952150 /* AuthenticationPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AuthenticationPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCF5927B271E8F4300952150 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCF5927D271E8F4300952150 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +56,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		FC3E2B7927211B7000BF3E6F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FCF59275271E8F4300952150 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -69,10 +91,35 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FC3E2B7D27211B7000BF3E6F /* AuthenticationPracticeValidatation */ = {
+			isa = PBXGroup;
+			children = (
+				FC3E2B7E27211B7000BF3E6F /* AuthenticationPracticeValidatation.swift */,
+			);
+			path = AuthenticationPracticeValidatation;
+			sourceTree = "<group>";
+		};
+		FC64D006272076DC0067BDCA /* API */ = {
+			isa = PBXGroup;
+			children = (
+				FC64D007272077020067BDCA /* NetworkManager.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		FC64D009272086050067BDCA /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				FCF5929B271EE67C00952150 /* Reusable.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		FCF5926F271E8F4300952150 = {
 			isa = PBXGroup;
 			children = (
 				FCF5927A271E8F4300952150 /* AuthenticationPractice */,
+				FC3E2B7D27211B7000BF3E6F /* AuthenticationPracticeValidatation */,
 				FCF59279271E8F4300952150 /* Products */,
 				218F2F38B29AD45F2F8E36CE /* Pods */,
 				48555A97BBEF1FE0A4E7CE78 /* Frameworks */,
@@ -83,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				FCF59278271E8F4300952150 /* AuthenticationPractice.app */,
+				FC3E2B7C27211B7000BF3E6F /* AuthenticationPracticeValidatation.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -90,7 +138,8 @@
 		FCF5927A271E8F4300952150 /* AuthenticationPractice */ = {
 			isa = PBXGroup;
 			children = (
-				FCF5929B271EE67C00952150 /* Reusable.swift */,
+				FC64D006272076DC0067BDCA /* API */,
+				FC64D009272086050067BDCA /* Utilities */,
 				FCF59298271E8FDB00952150 /* View Controllers */,
 				FCF5927B271E8F4300952150 /* AppDelegate.swift */,
 				FCF5927D271E8F4300952150 /* SceneDelegate.swift */,
@@ -117,6 +166,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		FC3E2B7B27211B7000BF3E6F /* AuthenticationPracticeValidatation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FC3E2B8227211B7000BF3E6F /* Build configuration list for PBXNativeTarget "AuthenticationPracticeValidatation" */;
+			buildPhases = (
+				FC3E2B7827211B7000BF3E6F /* Sources */,
+				FC3E2B7927211B7000BF3E6F /* Frameworks */,
+				FC3E2B7A27211B7000BF3E6F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FC3E2B8127211B7000BF3E6F /* PBXTargetDependency */,
+			);
+			name = AuthenticationPracticeValidatation;
+			productName = AuthenticationPracticeValidatation;
+			productReference = FC3E2B7C27211B7000BF3E6F /* AuthenticationPracticeValidatation.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		FCF59277271E8F4300952150 /* AuthenticationPractice */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FCF5928F271E8F4500952150 /* Build configuration list for PBXNativeTarget "AuthenticationPractice" */;
@@ -146,6 +213,10 @@
 				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1300;
 				TargetAttributes = {
+					FC3E2B7B27211B7000BF3E6F = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = FCF59277271E8F4300952150;
+					};
 					FCF59277271E8F4300952150 = {
 						CreatedOnToolsVersion = 13.0;
 					};
@@ -165,11 +236,19 @@
 			projectRoot = "";
 			targets = (
 				FCF59277271E8F4300952150 /* AuthenticationPractice */,
+				FC3E2B7B27211B7000BF3E6F /* AuthenticationPracticeValidatation */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		FC3E2B7A27211B7000BF3E6F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FCF59276271E8F4300952150 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -226,6 +305,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		FC3E2B7827211B7000BF3E6F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC3E2B7F27211B7000BF3E6F /* AuthenticationPracticeValidatation.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FCF59274271E8F4300952150 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -234,6 +321,7 @@
 				FCF59280271E8F4300952150 /* ViewController.swift in Sources */,
 				FCF5927C271E8F4300952150 /* AppDelegate.swift in Sources */,
 				FCF59293271E8FAC00952150 /* LoginViewController.swift in Sources */,
+				FC64D008272077020067BDCA /* NetworkManager.swift in Sources */,
 				FCF59297271E8FCC00952150 /* HomeViewController.swift in Sources */,
 				FCF5927E271E8F4300952150 /* SceneDelegate.swift in Sources */,
 				FCF5929C271EE67C00952150 /* Reusable.swift in Sources */,
@@ -241,6 +329,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FC3E2B8127211B7000BF3E6F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FCF59277271E8F4300952150 /* AuthenticationPractice */;
+			targetProxy = FC3E2B8027211B7000BF3E6F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		FCF59281271E8F4300952150 /* Main.storyboard */ = {
@@ -262,6 +358,51 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		FC3E2B8327211B7000BF3E6F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				"HEADER_SEARCH_PATHS[arch=*]" = "\"${SRCROOT}/Pods/Firebase/CoreOnly/Sources\"";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.practice.AuthenticationPracticeValidatation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AuthenticationPractice.app/AuthenticationPractice";
+			};
+			name = Debug;
+		};
+		FC3E2B8427211B7000BF3E6F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.practice.AuthenticationPracticeValidatation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AuthenticationPractice.app/AuthenticationPractice";
+			};
+			name = Release;
+		};
 		FCF5928D271E8F4500952150 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -387,6 +528,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "";
+				"HEADER_SEARCH_PATHS[arch=*]" = "\"${SRCROOT}/Pods/Firebase/CoreOnly/Sources\"";
 				INFOPLIST_FILE = AuthenticationPractice/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -415,6 +558,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = AuthenticationPractice/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -437,6 +581,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		FC3E2B8227211B7000BF3E6F /* Build configuration list for PBXNativeTarget "AuthenticationPracticeValidatation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC3E2B8327211B7000BF3E6F /* Debug */,
+				FC3E2B8427211B7000BF3E6F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FCF59273271E8F4300952150 /* Build configuration list for PBXProject "AuthenticationPractice" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

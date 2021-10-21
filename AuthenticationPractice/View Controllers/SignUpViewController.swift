@@ -6,12 +6,9 @@
 //
 
 import UIKit
-import FirebaseAuth
-import Firebase
-import FirebaseFirestore
 
 class SignUpViewController: UIViewController {
-
+    
     
     @IBOutlet weak var userNameTextField: UITextField!
     
@@ -21,16 +18,16 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
     // Validate the user inputs
     // returns nil if validated else error message
-    func validateUser() -> String? {
-        if userNameTextField.text == "" ||
-            emailTextField.text == "" ||
-            passwordTextField.text == "" {
+    func validateUser(username: String?, email: String?, password: String?) -> String? {
+        if username == "" ||
+            email == "" ||
+            password == "" {
             
             let invalidText: String = "Please fill all the Fields"
             return invalidText
@@ -40,47 +37,38 @@ class SignUpViewController: UIViewController {
     
     @IBAction func signUpTapped(_ sender: UIButton) {
         
-        let error = validateUser()
+        let error = validateUser(username: userNameTextField.text, email: emailTextField.text, password: passwordTextField.text)
         
         if error != nil {
             showAlert(title: "Invalid", message: error!)
             
         } else {
             //Authenticate User
-            Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (result, error) in
-                
+            
+            NetworkManager.shared.signup(withEmail: emailTextField.text!, password: passwordTextField.text!) { [weak self] result, error in
                 if error != nil {
-                    self.showAlert(title: "Error", message: error!.localizedDescription)
+                    self!.showAlert(title: "Failed", message: error!.localizedDescription)
                 } else {
+                    //Store Data in Firestore DB
                     
-                    // Store Username in Firestore Database
-                    let db = Firestore.firestore()
+                    let content: [String: Any] = ["username": self!.userNameTextField.text!,
+                                                  "uid": result!.user.uid]
+                    NetworkManager.shared.writeDB(documentName: "users",data: content)
                     
-                    db.collection("users").document(Auth.auth().currentUser!.uid).setData([
-                        "username": self.userNameTextField.text!,
-                        "uid": result!.user.uid
-                    ])
-                    
-                        if error != nil {
-                            self.showAlert(title: "Failed", message: "Failed to Store the Data in Database")
-                        }
-                    
-                    
-                    //Navigate to Home Screen from Reusable File
-                    self.navigateHomeScreen()
+                    self!.navigateHomeScreen()
                 }
             }
         }
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
