@@ -20,17 +20,41 @@ extension UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func navigateHomeScreen() {
-        let homeViewController = storyboard?.instantiateViewController(withIdentifier: "HomeVC")
-        
-        view.window?.rootViewController = homeViewController
-        view.window?.makeKeyAndVisible()
+    func passwordValidation(password: String) -> Bool {
+        let passwordRegex = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$")
+        return passwordRegex.evaluate(with: password)
     }
     
-    func navigateLoginScreen() {
-        let loginViewController = storyboard?.instantiateViewController(withIdentifier: "LoginVC")
-        
-        view.window?.rootViewController = loginViewController
-        view.window?.makeKeyAndVisible()
+    func emailValidation(email: String) -> Bool {
+        let emailRegex = NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+]+@[A-Za-z0-9.]+\\.[A-Za-z]{2,4}")
+        return emailRegex.evaluate(with: email)
     }
+    
+//    func presentViewController(screenIdentifier: String) {
+//        let viewController = storyboard!.instantiateViewController(withIdentifier: screenIdentifier)
+//        
+//        viewController.modalPresentationStyle = .fullScreen
+//        
+//        present(viewController, animated: true, completion: nil)
+//        
+//    }
+//    
+//    func dismissViewController(count: Int) {
+//        dismiss(animated: true, completion: nil)
+//        
+//    }
+    
+    func navigateHomeScreen() {
+        let homeViewController = storyboard?.instantiateViewController(withIdentifier: StoryBoardConstants.dashboardVCIdentifier)
+            
+            view.window?.rootViewController = homeViewController
+            view.window?.makeKeyAndVisible()
+        }
+        
+        func navigateLoginScreen() {
+            let loginViewController = storyboard?.instantiateViewController(withIdentifier: StoryBoardConstants.loginVCIdentifier)
+            
+            view.window?.rootViewController = loginViewController
+            view.window?.makeKeyAndVisible()
+        }
 }

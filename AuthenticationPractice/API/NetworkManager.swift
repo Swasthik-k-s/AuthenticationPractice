@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseAuth
 import FirebaseFirestore
+import GoogleSignIn
 
 struct NetworkManager {
     static let shared = NetworkManager()
@@ -30,10 +31,26 @@ struct NetworkManager {
         db.collection(documentName).document(getUID()!).setData(data)
     }
     
+    func readDB(documentName: String) {
+        let db = Firestore.firestore()
+        let docRef = db.collection(documentName).document(getUID() ?? "none")
+
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                print("Document data: \(dataDescription)")
+                
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
+    
     func signout() -> Bool {
         let firebaseAuth = Auth.auth()
         do {
           try firebaseAuth.signOut()
+            GIDSignIn.sharedInstance.signOut()
             return true
         } catch let signOutError as NSError {
           print("Error signing out: %@", signOutError)

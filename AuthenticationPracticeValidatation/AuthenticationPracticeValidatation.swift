@@ -9,43 +9,86 @@ import XCTest
 @testable import AuthenticationPractice
 
 class AuthenticationPracticeValidatation: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
     
-    func testCheckLoginValidationWithTwoEmptyFieldsReturnErrorString() {
+    func testCheckLoginValidationWithAllEmptyFieldsReturnErrorString() {
         let result = LoginViewController().validateUser(email: "", password: "")
         
-        XCTAssertEqual(result, "Please fill all the Fields")
+        XCTAssertEqual(result, messageConstants.emptyFields)
     }
     
     func testCheckLoginValidationWithEmailEmptyFieldReturnErrorString() {
         let result = LoginViewController().validateUser(email: "", password: "123456")
         
-        XCTAssertEqual(result, "Please fill all the Fields")
+        XCTAssertEqual(result, messageConstants.emptyFields)
     }
     
     func testCheckLoginValidationWithPasswordEmptyFieldReturnErrorString() {
         let result = LoginViewController().validateUser(email: "abc@gmail.com", password: "")
         
-        XCTAssertEqual(result, "Please fill all the Fields")
+        XCTAssertEqual(result, messageConstants.emptyFields)
     }
 
+    func testCheckSignUpValidationWithAllEmptyFieldsReturnErrorString() {
+        let result = SignUpViewController().validateUser(username: "", email: "", password: "")
+        
+        XCTAssertEqual(result, messageConstants.emptyFields)
+    }
+    
+    func testCheckSignUpValidationWithUsernameEmptyFieldReturnErrorString() {
+        let result = SignUpViewController().validateUser(username: "", email: "abc@gmail.com", password: "123456")
+        
+        XCTAssertEqual(result, messageConstants.emptyFields)
+    }
+    
+    func testCheckSignUpValidationWithEmailEmptyFieldReturnErrorString() {
+        let result = SignUpViewController().validateUser(username: "abc", email: "", password: "123456")
+        
+        XCTAssertEqual(result, messageConstants.emptyFields)
+    }
+    
+    func testCheckSignUpValidationWithPasswordEmptyFieldReturnErrorString() {
+        let result = SignUpViewController().validateUser(username: "abc", email: "abc@gmail.com", password: "")
+        
+        XCTAssertEqual(result, messageConstants.emptyFields)
+    }
+    
+    func testValidateEmailFormatWithInvalidEmailReturnFalse() {
+        let view = UIViewController()
+        let result1 = view.emailValidation(email: "abc")
+        let result2 = view.emailValidation(email: "abc@gmail")
+        let result3 = view.emailValidation(email: "abc@gmail.")
+        let result4 = view.emailValidation(email: "abc.gmail.com")
+        
+        XCTAssertFalse(result1)
+        XCTAssertFalse(result2)
+        XCTAssertFalse(result3)
+        XCTAssertFalse(result4)
+    }
+    
+    func testValidateEmailFormatWithValidEmailReturnTrue() {
+        let result = UIViewController().emailValidation(email: "abc@gmail.com")
+        XCTAssertTrue(result)
+    }
+    
+    func testValidatePasswordFormatWithInvalidPasswordReturnFalse() {
+        let view = UIViewController()
+        
+        //Minimum 8 Characters
+        let result1 = view.passwordValidation(password: "abc12#")
+        
+        //Atleast 1 Number
+        let result2 = view.passwordValidation(password: "abcdefghij")
+        
+        //Atleast 1 Special Character
+        let result3 = view.passwordValidation(password: "abcd1234")
+        
+        XCTAssertFalse(result1)
+        XCTAssertFalse(result2)
+        XCTAssertFalse(result3)
+    }
+    
+    func testValidatePasswordFormatWithValidPasswordReturnTrue() {
+        let result = UIViewController().passwordValidation(password: "abcd1234%")
+        XCTAssertTrue(result)
+    }
 }

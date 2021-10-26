@@ -13,19 +13,51 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var passwordTextField: UITextField!
     
+    @IBOutlet weak var passwordIcon: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        passwordIcon.isUserInteractionEnabled = true
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(iconTapped(recognizer: )))
+        
+        passwordIcon.addGestureRecognizer(tapRecognizer)
         
         // Do any additional setup after loading the view.
     }
     
+    @objc func iconTapped(recognizer: UITapGestureRecognizer) {
+        let tappedImage =  recognizer.view as! UIImageView
+
+        passwordTextField.isSecureTextEntry = !passwordTextField.isSecureTextEntry
+        if passwordTextField.isSecureTextEntry {
+            tappedImage.image = UIImage(systemName: "eye.slash")
+        } else {
+            tappedImage.image = UIImage(systemName: "eye")
+        }
+    }
+    
     func validateUser(email: String?, password: String?) -> String? {
+        
+        //Check if fields are empty
         if email == "" ||
             password == "" {
             
-            let invalidText: String = "Please fill all the Fields"
-            return invalidText
+            return messageConstants.emptyFields
         }
+        
+        //Check is email is valid
+        if !emailValidation(email: email!) {
+            return messageConstants.emailInvalid
+        }
+        
+        //Check if password is valid
+//        if !passwordValidation(password: password!) {
+//
+//            return messageConstants.passwordInvalid
+//        }
+        
         return nil
     }
     

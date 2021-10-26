@@ -12,6 +12,8 @@ import GoogleSignIn
 
 class ViewController: UIViewController {
     
+    let signInConfig = GIDConfiguration.init(clientID: APIConstants.clientID)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,16 +22,18 @@ class ViewController: UIViewController {
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        if NetworkManager.shared.getUID() != nil {
-            navigateHomeScreen()
-            print("Logged In")
-        } else {
-            print("Logged Out")
-        }
-    }
-    
     @IBAction func googleSignInPressed(_ sender: Any) {
+        
+        let signInConfig = GIDConfiguration.init(clientID: APIConstants.clientID)
+        
+        GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { user, error in
+            if error == nil {
+                print("Done")
+                self.navigateHomeScreen()
+            } else {
+                print("Failed")
+            }
+        }
         
     }
     

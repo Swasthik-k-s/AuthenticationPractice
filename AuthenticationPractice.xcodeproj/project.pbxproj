@@ -9,7 +9,12 @@
 /* Begin PBXBuildFile section */
 		87BCA8602070593CD0DF1DF4 /* Pods_AuthenticationPractice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF14835CE2CA975C913B4CBE /* Pods_AuthenticationPractice.framework */; };
 		FC3E2B7F27211B7000BF3E6F /* AuthenticationPracticeValidatation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3E2B7E27211B7000BF3E6F /* AuthenticationPracticeValidatation.swift */; };
+		FC3E2B8627214B1B00BF3E6F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3E2B8527214B1B00BF3E6F /* Constants.swift */; };
 		FC64D008272077020067BDCA /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC64D007272077020067BDCA /* NetworkManager.swift */; };
+		FC679D1727252C1F00ECD0C8 /* DashBoardContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC679D1627252C1F00ECD0C8 /* DashBoardContainerViewController.swift */; };
+		FC679D19272544EE00ECD0C8 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC679D18272544EE00ECD0C8 /* Protocols.swift */; };
+		FC69BE8C2727B6D500ED0BB6 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC69BE8B2727B6D500ED0BB6 /* AddItemViewController.swift */; };
+		FC841F012723C710001118A2 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC841F002723C710001118A2 /* SideMenuController.swift */; };
 		FCF5927C271E8F4300952150 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF5927B271E8F4300952150 /* AppDelegate.swift */; };
 		FCF5927E271E8F4300952150 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF5927D271E8F4300952150 /* SceneDelegate.swift */; };
 		FCF59280271E8F4300952150 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF5927F271E8F4300952150 /* ViewController.swift */; };
@@ -39,7 +44,12 @@
 		CF14835CE2CA975C913B4CBE /* Pods_AuthenticationPractice.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AuthenticationPractice.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC3E2B7C27211B7000BF3E6F /* AuthenticationPracticeValidatation.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuthenticationPracticeValidatation.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC3E2B7E27211B7000BF3E6F /* AuthenticationPracticeValidatation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationPracticeValidatation.swift; sourceTree = "<group>"; };
+		FC3E2B8527214B1B00BF3E6F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FC64D007272077020067BDCA /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		FC679D1627252C1F00ECD0C8 /* DashBoardContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardContainerViewController.swift; sourceTree = "<group>"; };
+		FC679D18272544EE00ECD0C8 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		FC69BE8B2727B6D500ED0BB6 /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
+		FC841F002723C710001118A2 /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 		FCF59278271E8F4300952150 /* AuthenticationPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AuthenticationPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCF5927B271E8F4300952150 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCF5927D271E8F4300952150 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +121,8 @@
 			isa = PBXGroup;
 			children = (
 				FCF5929B271EE67C00952150 /* Reusable.swift */,
+				FC3E2B8527214B1B00BF3E6F /* Constants.swift */,
+				FC679D18272544EE00ECD0C8 /* Protocols.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -140,7 +152,7 @@
 			children = (
 				FC64D006272076DC0067BDCA /* API */,
 				FC64D009272086050067BDCA /* Utilities */,
-				FCF59298271E8FDB00952150 /* View Controllers */,
+				FCF59298271E8FDB00952150 /* Controllers */,
 				FCF5927B271E8F4300952150 /* AppDelegate.swift */,
 				FCF5927D271E8F4300952150 /* SceneDelegate.swift */,
 				FCF59281271E8F4300952150 /* Main.storyboard */,
@@ -152,15 +164,18 @@
 			path = AuthenticationPractice;
 			sourceTree = "<group>";
 		};
-		FCF59298271E8FDB00952150 /* View Controllers */ = {
+		FCF59298271E8FDB00952150 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				FCF5927F271E8F4300952150 /* ViewController.swift */,
 				FCF59292271E8FAC00952150 /* LoginViewController.swift */,
 				FCF59294271E8FC000952150 /* SignUpViewController.swift */,
 				FCF59296271E8FCC00952150 /* HomeViewController.swift */,
+				FC841F002723C710001118A2 /* SideMenuController.swift */,
+				FC679D1627252C1F00ECD0C8 /* DashBoardContainerViewController.swift */,
+				FC69BE8B2727B6D500ED0BB6 /* AddItemViewController.swift */,
 			);
-			path = "View Controllers";
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,11 +335,16 @@
 				FCF59295271E8FC000952150 /* SignUpViewController.swift in Sources */,
 				FCF59280271E8F4300952150 /* ViewController.swift in Sources */,
 				FCF5927C271E8F4300952150 /* AppDelegate.swift in Sources */,
+				FC679D19272544EE00ECD0C8 /* Protocols.swift in Sources */,
 				FCF59293271E8FAC00952150 /* LoginViewController.swift in Sources */,
+				FC69BE8C2727B6D500ED0BB6 /* AddItemViewController.swift in Sources */,
 				FC64D008272077020067BDCA /* NetworkManager.swift in Sources */,
 				FCF59297271E8FCC00952150 /* HomeViewController.swift in Sources */,
 				FCF5927E271E8F4300952150 /* SceneDelegate.swift in Sources */,
 				FCF5929C271EE67C00952150 /* Reusable.swift in Sources */,
+				FC841F012723C710001118A2 /* SideMenuController.swift in Sources */,
+				FC3E2B8627214B1B00BF3E6F /* Constants.swift in Sources */,
+				FC679D1727252C1F00ECD0C8 /* DashBoardContainerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
