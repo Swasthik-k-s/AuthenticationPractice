@@ -9,14 +9,15 @@ import UIKit
 
 class SideMenuController: UITableViewController {
 
-    var menuList = ["Home", "Settings", "Account", "Logout"]
+    var menuList = ["HOME", "SETTINGS", "ACCOUNT", "LOGOUT"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        tableView.backgroundColor = UIColor(red: 50/255.0, green: 50/255.0, blue: 50/255.0, alpha: 1.0)
+        tableView.backgroundColor = UIColor(red: 48/255.0, green: 48/255.0, blue: 48/255.0, alpha: 1.0)
         tableView.separatorColor = .black
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "menuItem")
+        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -29,11 +30,22 @@ class SideMenuController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "menuItem", for: indexPath)
+        
+        cell.backgroundColor = UIColor(red: 55/255.0, green: 55/255.0, blue: 55/255.0, alpha: 1.0)
         cell.textLabel?.text = menuList[indexPath.row]
-        cell.textLabel?.textColor = .black
-//        cell.backgroundColor = UIColor(red: 42/255.0, green: 42/255.0, blue: 42/255.0, alpha: 1.0)
+        cell.textLabel?.textColor = .white
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if menuList[indexPath.row] == "LOGOUT" {
+            let isSignedOut = NetworkManager.shared.signout()
+            
+            if isSignedOut {
+                navigateLoginScreen()
+            }
+        }
     }
     
     /*

@@ -16,9 +16,18 @@ class DashBoardContainerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        let statusBarView = UIView(frame: UIApplication.shared.statusBarFrame)
+//
+//        statusBarView.backgroundColor = .black
+//        view.addSubview(statusBarView)
         configureHome()
         
         // Do any additional setup after loading the view.
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        
+        return .lightContent
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -37,7 +46,7 @@ class DashBoardContainerViewController: UIViewController {
         
         home.delegate = self
         centerController = UINavigationController(rootViewController: home)
-        
+//        centerController.navigationController?.navigationBar.barStyle = .default
         self.view.addSubview(centerController.view)
         addChild(centerController)
         centerController.didMove(toParent: self)

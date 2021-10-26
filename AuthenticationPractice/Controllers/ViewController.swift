@@ -9,6 +9,8 @@ import UIKit
 import FirebaseAuth
 import Firebase
 import GoogleSignIn
+import FBSDKLoginKit
+import FBSDKCoreKit
 
 class ViewController: UIViewController {
     
@@ -38,7 +40,29 @@ class ViewController: UIViewController {
     }
     
     @IBAction func facebookSignInPressed(_ sender: Any) {
-        
+        let loginManager = LoginManager()
+        loginManager.logIn(permissions: ["public_profile", "email"], from: self) { result, error in
+            if let error = error {
+                print("Failed to Login: \(error.localizedDescription)")
+                return
+            }
+            guard let accessToken = AccessToken.current else {
+                print("Failed to get Access Token")
+                return
+            }
+            
+            let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
+            
+            Auth.auth().signIn(with: credential) { user, error in
+                if let error = error {
+                    print("Login Error: \(error.localizedDescription)")
+                    self.showAlert(title: "Login Error", message: error.localizedDescription)
+                    return
+                } else {
+                    self.navigateHomeScreen()
+                }
+            }
+        }
     }
 }
 
