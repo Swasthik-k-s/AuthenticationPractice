@@ -8,45 +8,42 @@
 import UIKit
 
 class AddItemViewController: UIViewController {
-
+    
+    @IBOutlet weak var titleField: UITextField!
+    @IBOutlet weak var noteField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         configureScreen()
         // Do any additional setup after loading the view.
     }
     
-    let closeButton = UIButton()
+    //    let closeButton = UIButton()
     
     func configureScreen() {
-        view.backgroundColor = .white
-        closeButton.setImage(UIImage(systemName: "clear"), for: .normal)
-        view.addSubview(closeButton)
         
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        let topConstraint = NSLayoutConstraint(item: closeButton, attribute: .topMargin, relatedBy: .equal, toItem: view, attribute: .topMargin, multiplier: 1.0, constant: 10)
-        
-        let rightConstraint = NSLayoutConstraint(item: closeButton, attribute: .rightMargin, relatedBy: .equal, toItem: view, attribute: .rightMargin, multiplier: 1.0, constant: 0)
-        
-        view.addConstraints([topConstraint, rightConstraint])
-        
-        closeButton.addTarget(self, action: #selector(closeButtonPressed), for: .touchUpInside)
+        navigationItem.title = "ADD NOTE"
         
     }
     
-    @objc func closeButtonPressed() {
-        dismiss(animated: true, completion: nil)
+    @IBAction func savePressed() {
+        if titleField.text == "" || noteField.text == "" {
+            showAlert(title: "Invalid", message: "Title or Note cannot be Empty")
+        } else {
+            
+            
+            
+            let content: [String: Any] = ["title": titleField.text!,
+                                          "note": noteField.text!, "user": NetworkManager.shared.getUID()!,
+                                          "date": Date()]
+            NetworkManager.shared.writeDB(collectionName: "notes",data: content)
+            navigationController?.popViewController(animated: true)
+        }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    @IBAction func clearPressed() {
+        titleField.text = ""
+        noteField.text = ""
     }
-    */
-
 }

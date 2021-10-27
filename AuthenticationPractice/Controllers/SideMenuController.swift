@@ -9,6 +9,7 @@ import UIKit
 
 class SideMenuController: UITableViewController {
 
+    
     var menuList = ["HOME", "SETTINGS", "ACCOUNT", "LOGOUT"]
     
     override func viewDidLoad() {
@@ -45,6 +46,8 @@ class SideMenuController: UITableViewController {
             if isSignedOut {
                 navigateLoginScreen()
             }
+        } else if menuList[indexPath.row] == "SETTINGS" {
+    
         }
     }
     

@@ -79,7 +79,7 @@ class SignUpViewController: UIViewController {
                     
                     let content: [String: Any] = ["username": self!.userNameTextField.text!,
                                                   "uid": result!.user.uid]
-                    NetworkManager.shared.writeDB(documentName: "users",data: content)
+                    NetworkManager.shared.writeDB(collectionName: "users",data: content)
                     
                     self!.navigateHomeScreen()
                 }

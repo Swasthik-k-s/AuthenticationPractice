@@ -15,6 +15,8 @@
 		FC679D19272544EE00ECD0C8 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC679D18272544EE00ECD0C8 /* Protocols.swift */; };
 		FC69BE8C2727B6D500ED0BB6 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC69BE8B2727B6D500ED0BB6 /* AddItemViewController.swift */; };
 		FC841F012723C710001118A2 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC841F002723C710001118A2 /* SideMenuController.swift */; };
+		FCB5C74B27294B6100005412 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB5C74A27294B6100005412 /* SettingsViewController.swift */; };
+		FCB5C74E27295A5900005412 /* NoteItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB5C74D27295A5900005412 /* NoteItem.swift */; };
 		FCF5927C271E8F4300952150 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF5927B271E8F4300952150 /* AppDelegate.swift */; };
 		FCF5927E271E8F4300952150 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF5927D271E8F4300952150 /* SceneDelegate.swift */; };
 		FCF59280271E8F4300952150 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF5927F271E8F4300952150 /* ViewController.swift */; };
@@ -50,6 +52,8 @@
 		FC679D18272544EE00ECD0C8 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		FC69BE8B2727B6D500ED0BB6 /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 		FC841F002723C710001118A2 /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
+		FCB5C74A27294B6100005412 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		FCB5C74D27295A5900005412 /* NoteItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteItem.swift; sourceTree = "<group>"; };
 		FCF59278271E8F4300952150 /* AuthenticationPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AuthenticationPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCF5927B271E8F4300952150 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCF5927D271E8F4300952150 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -127,6 +131,14 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		FCB5C74C27295A3D00005412 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				FCB5C74D27295A5900005412 /* NoteItem.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		FCF5926F271E8F4300952150 = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +162,7 @@
 		FCF5927A271E8F4300952150 /* AuthenticationPractice */ = {
 			isa = PBXGroup;
 			children = (
+				FCB5C74C27295A3D00005412 /* Data */,
 				FC64D006272076DC0067BDCA /* API */,
 				FC64D009272086050067BDCA /* Utilities */,
 				FCF59298271E8FDB00952150 /* Controllers */,
@@ -174,6 +187,7 @@
 				FC841F002723C710001118A2 /* SideMenuController.swift */,
 				FC679D1627252C1F00ECD0C8 /* DashBoardContainerViewController.swift */,
 				FC69BE8B2727B6D500ED0BB6 /* AddItemViewController.swift */,
+				FCB5C74A27294B6100005412 /* SettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -341,6 +355,8 @@
 				FC64D008272077020067BDCA /* NetworkManager.swift in Sources */,
 				FCF59297271E8FCC00952150 /* HomeViewController.swift in Sources */,
 				FCF5927E271E8F4300952150 /* SceneDelegate.swift in Sources */,
+				FCB5C74E27295A5900005412 /* NoteItem.swift in Sources */,
+				FCB5C74B27294B6100005412 /* SettingsViewController.swift in Sources */,
 				FCF5929C271EE67C00952150 /* Reusable.swift in Sources */,
 				FC841F012723C710001118A2 /* SideMenuController.swift in Sources */,
 				FC3E2B8627214B1B00BF3E6F /* Constants.swift in Sources */,

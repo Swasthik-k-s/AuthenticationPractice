@@ -10,6 +10,8 @@ import GoogleSignIn
 
 class DashBoardContainerViewController: UIViewController {
     
+    static let shared = DashBoardContainerViewController()
+    
     var menuController: SideMenuController!
     var centerController: UIViewController!
     var isOpen: Bool = false

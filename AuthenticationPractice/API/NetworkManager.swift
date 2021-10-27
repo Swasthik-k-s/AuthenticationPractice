@@ -13,6 +13,8 @@ import GoogleSignIn
 struct NetworkManager {
     static let shared = NetworkManager()
     
+    let database = Firestore.firestore()
+    
     func login(withEmail email: String, password: String, completion: AuthDataResultCallback?) {
         Auth.auth().signIn(withEmail: email, password: password,completion: completion)
     }
@@ -25,15 +27,15 @@ struct NetworkManager {
         return Auth.auth().currentUser?.uid
     }
     
-    func writeDB(documentName: String, data: [String: Any]) {
-        let db = Firestore.firestore()
+    func writeDB(collectionName: String, data: [String: Any]) {
+//        let db = Firestore.firestore()
         
-        db.collection(documentName).document(getUID()!).setData(data)
+        database.collection(collectionName).document(getUID()!).setData(data)
     }
     
     func readDB(documentName: String) {
-        let db = Firestore.firestore()
-        let docRef = db.collection(documentName).document(getUID() ?? "none")
+//        let db = Firestore.firestore()
+        let docRef = database.collection(documentName).document(getUID() ?? "none")
 
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
