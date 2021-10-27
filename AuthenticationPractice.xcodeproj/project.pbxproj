@@ -17,6 +17,7 @@
 		FC841F012723C710001118A2 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC841F002723C710001118A2 /* SideMenuController.swift */; };
 		FCB5C74B27294B6100005412 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB5C74A27294B6100005412 /* SettingsViewController.swift */; };
 		FCB5C74E27295A5900005412 /* NoteItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB5C74D27295A5900005412 /* NoteItem.swift */; };
+		FCB5C7502729940200005412 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB5C74F2729940200005412 /* NoteCell.swift */; };
 		FCF5927C271E8F4300952150 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF5927B271E8F4300952150 /* AppDelegate.swift */; };
 		FCF5927E271E8F4300952150 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF5927D271E8F4300952150 /* SceneDelegate.swift */; };
 		FCF59280271E8F4300952150 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF5927F271E8F4300952150 /* ViewController.swift */; };
@@ -54,6 +55,7 @@
 		FC841F002723C710001118A2 /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 		FCB5C74A27294B6100005412 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		FCB5C74D27295A5900005412 /* NoteItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteItem.swift; sourceTree = "<group>"; };
+		FCB5C74F2729940200005412 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		FCF59278271E8F4300952150 /* AuthenticationPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AuthenticationPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCF5927B271E8F4300952150 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCF5927D271E8F4300952150 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				FC679D1627252C1F00ECD0C8 /* DashBoardContainerViewController.swift */,
 				FC69BE8B2727B6D500ED0BB6 /* AddItemViewController.swift */,
 				FCB5C74A27294B6100005412 /* SettingsViewController.swift */,
+				FCB5C74F2729940200005412 /* NoteCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				FC841F012723C710001118A2 /* SideMenuController.swift in Sources */,
 				FC3E2B8627214B1B00BF3E6F /* Constants.swift in Sources */,
 				FC679D1727252C1F00ECD0C8 /* DashBoardContainerViewController.swift in Sources */,
+				FCB5C7502729940200005412 /* NoteCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

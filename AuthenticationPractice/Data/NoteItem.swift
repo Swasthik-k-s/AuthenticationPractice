@@ -9,9 +9,9 @@ import FirebaseFirestore
 import Foundation
 
 struct NoteItem: Codable {
-    var noteId: String
+    var id: String
     var title: String
     var note: String
     var user: String
-    var date: String
+    var date: Date
 }

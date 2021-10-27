@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class AddItemViewController: UIViewController {
     
@@ -32,12 +33,13 @@ class AddItemViewController: UIViewController {
             showAlert(title: "Invalid", message: "Title or Note cannot be Empty")
         } else {
             
-            
-            
+            let db = Firestore.firestore()
             let content: [String: Any] = ["title": titleField.text!,
                                           "note": noteField.text!, "user": NetworkManager.shared.getUID()!,
                                           "date": Date()]
-            NetworkManager.shared.writeDB(collectionName: "notes",data: content)
+            
+            db.collection("notes").addDocument(data: content)
+//            NetworkManager.shared.writeDB(collectionName: "notes",data: content)
             navigationController?.popViewController(animated: true)
         }
     }

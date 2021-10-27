@@ -59,6 +59,9 @@ class ViewController: UIViewController {
                     self.showAlert(title: "Login Error", message: error.localizedDescription)
                     return
                 } else {
+                    let content: [String: Any] = ["username": "",
+                                                  "uid": Auth.auth().currentUser?.uid ?? ""]
+                    NetworkManager.shared.writeDB(collectionName: "users",data: content)
                     self.navigateHomeScreen()
                 }
             }
