@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddItemViewController: UIViewController {
+class AddItemViewController: UIViewController, UITextFieldDelegate {
     
     var noteArray = [NoteItem]()
     var isNew: Bool = true
@@ -16,28 +16,33 @@ class AddItemViewController: UIViewController {
     
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var noteField: UITextField!
+    @IBOutlet weak var saveButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureScreen()
+        
+        navigationItem.title = isNew ? "ADD NOTE" : "EDIT NOTE"
         
         if !isNew {
             loadData()
+            titleField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
+            noteField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
         }
         // Do any additional setup after loading the view.
     }
     
-    func configureScreen() {
-        
-        navigationItem.title = isNew ? "ADD NOTE" : "EDIT NOTE"
-        
+    @objc func textFieldChanged() {
+
+        saveButton.isHidden = note?.title != titleField.text ||
+        note?.note != noteField.text ? false : true
     }
     
     func loadData() {
         titleField.text = note?.title
         noteField.text = note?.note
-        
+        saveButton.setTitle("UPDATE", for: .normal)
+        saveButton.isHidden = true
     }
     
     @IBAction func savePressed() {
@@ -57,7 +62,8 @@ class AddItemViewController: UIViewController {
             note?.title = titleField.text!
             note?.note = noteField.text!
             
-//            NetworkManager.shared.updateNote(note: note!)
+            NetworkManager.shared.updateNote(note: note!)
+            navigationController?.popViewController(animated: true)
         }
     }
     

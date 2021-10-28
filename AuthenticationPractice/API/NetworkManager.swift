@@ -63,7 +63,19 @@ struct NetworkManager {
     
     func updateNote(note: NoteItem) {
 
-//        database.collection("notes").document(note.id).
+        database.collection("notes").document(note.id).updateData(["title": note.title, "note": note.note]) { error in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func deleteNote(note: NoteItem) {
+        database.collection("notes").document(note.id).delete { error in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func writeDB(collectionName: String, data: [String: Any]) {

@@ -56,6 +56,7 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
         layout.minimumLineSpacing = 2
         layout.minimumInteritemSpacing = 2
         
+//        noteCollectionView.layer.cornerRadius = 10
         noteCollectionView.collectionViewLayout = layout
         noteCollectionView.backgroundColor = .clear
     }
@@ -73,9 +74,14 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
         delegate?.menuHandler()
     }
     
-    @objc func deleteNote(_ sender: NoteCell) {
-        
-        print("Delete Pressed")
+    @objc func deleteNote(_ sender: UIButton) {
+        let deleteNote = noteList[sender.tag]
+        print(deleteNote.title)
+        NetworkManager.shared.deleteNote(note: deleteNote)
+        noteList.remove(at: sender.tag)
+        noteCollectionView.reloadData()
+//        showAlert(title: "Delete " + deleteNote.title, message: "Are you Sure")
+        print("Deleted")
     }
     
     
@@ -100,6 +106,8 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
         cell.noteText.text = noteList[indexPath.row].note
         cell.dateText.text = dateFormatter.string(from: date)
         cell.timeText.text = timeFormatter.string(from: date)
+        
+        cell.noteDelete.tag = indexPath.row
         cell.noteDelete.addTarget(self, action: #selector(deleteNote), for: .touchUpInside)
 
         return cell
