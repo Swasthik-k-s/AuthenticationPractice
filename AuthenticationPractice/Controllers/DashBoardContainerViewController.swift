@@ -64,7 +64,6 @@ class DashBoardContainerViewController: UIViewController {
             view.insertSubview(menuController.view, at: 0)
             addChild(menuController)
             menuController.didMove(toParent: self)
-            print("Menu Configure")
         }
     }
     
@@ -83,7 +82,6 @@ class DashBoardContainerViewController: UIViewController {
 
 extension DashBoardContainerViewController: MenuDelegate {
     func menuHandler() {
-        print("Menu clicked")
         
         if !isOpen {
             configureMenu()

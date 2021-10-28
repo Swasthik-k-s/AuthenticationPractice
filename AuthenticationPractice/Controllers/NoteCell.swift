@@ -12,5 +12,11 @@ class NoteCell: UICollectionViewCell {
     
     @IBOutlet weak var noteText: UILabel!
     
+    @IBOutlet weak var dateText: UILabel!
+    
+    @IBOutlet weak var timeText: UILabel!
+    
+    @IBOutlet weak var noteDelete: UIButton!
     
 }
+

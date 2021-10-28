@@ -6,9 +6,13 @@
 //
 
 import UIKit
-import FirebaseFirestore
 
 class AddItemViewController: UIViewController {
+    
+    var noteArray = [NoteItem]()
+    var isNew: Bool = true
+    var note: NoteItem?
+    
     
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var noteField: UITextField!
@@ -17,30 +21,43 @@ class AddItemViewController: UIViewController {
         super.viewDidLoad()
         
         configureScreen()
+        
+        if !isNew {
+            loadData()
+        }
         // Do any additional setup after loading the view.
     }
     
-    //    let closeButton = UIButton()
-    
     func configureScreen() {
         
-        navigationItem.title = "ADD NOTE"
+        navigationItem.title = isNew ? "ADD NOTE" : "EDIT NOTE"
+        
+    }
+    
+    func loadData() {
+        titleField.text = note?.title
+        noteField.text = note?.note
         
     }
     
     @IBAction func savePressed() {
         if titleField.text == "" || noteField.text == "" {
             showAlert(title: "Invalid", message: "Title or Note cannot be Empty")
-        } else {
+        } else if isNew {
             
-            let db = Firestore.firestore()
             let content: [String: Any] = ["title": titleField.text!,
-                                          "note": noteField.text!, "user": NetworkManager.shared.getUID()!,
+                                          "note": noteField.text!,
+                                          "user": NetworkManager.shared.getUID()!,
                                           "date": Date()]
             
-            db.collection("notes").addDocument(data: content)
-//            NetworkManager.shared.writeDB(collectionName: "notes",data: content)
+            NetworkManager.shared.addNote(note: content)
+            
             navigationController?.popViewController(animated: true)
+        } else {
+            note?.title = titleField.text!
+            note?.note = noteField.text!
+            
+//            NetworkManager.shared.updateNote(note: note!)
         }
     }
     

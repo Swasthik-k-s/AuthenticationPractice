@@ -27,6 +27,45 @@ struct NetworkManager {
         return Auth.auth().currentUser?.uid
     }
     
+    func addNote(note: [String: Any]) {
+        database.collection("notes").addDocument(data: note)
+    }
+    
+    func getNote(completion: @escaping([NoteItem]) -> Void) {
+//        let db = Firestore.firestore()
+        guard let uid = NetworkManager.shared.getUID() else { return }
+        
+        database.collection("notes").whereField("user", isEqualTo: uid).getDocuments { snapshot, error in
+            var notes: [NoteItem] = []
+            
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            
+            guard let snapshot = snapshot else { return }
+            
+            for doc in snapshot.documents {
+                let data = doc.data()
+                let id = doc.documentID
+                let title = data["title"] as? String ?? ""
+                let note = data["note"] as? String ?? ""
+                let user = data["user"] as? String ?? ""
+                let date = (data["date"] as? Timestamp)?.dateValue() ?? Date()
+                
+                let newNote = NoteItem(id: id, title: title, note: note, user: user, date: date)
+                notes.append(newNote)
+            }
+            completion(notes)
+//            print(noteList)
+        }
+    }
+    
+    func updateNote(note: NoteItem) {
+
+//        database.collection("notes").document(note.id).
+    }
+    
     func writeDB(collectionName: String, data: [String: Any]) {
 //        let db = Firestore.firestore()
         
@@ -34,18 +73,7 @@ struct NetworkManager {
     }
     
     func readDB(documentName: String) {
-//        let db = Firestore.firestore()
-        let docRef = database.collection(documentName).document(getUID() ?? "none")
 
-        docRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                print("Document data: \(dataDescription)")
-                
-            } else {
-                print("Document does not exist")
-            }
-        }
     }
     
     func signout() -> Bool {

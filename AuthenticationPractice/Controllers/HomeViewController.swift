@@ -14,55 +14,29 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
     @IBOutlet weak var noteCollectionView: UICollectionView!
     var delegate: MenuDelegate?
     var noteList: [NoteItem] = []
-    var testArray: [String] = ["a","b"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureScreen()
+        configureNavigationBar()
+        configureCollectionView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         getData()
-        
     }
     
     func getData() {
-        let db = Firestore.firestore()
-        
-        db.collection("notes").whereField("user", isEqualTo: NetworkManager.shared.getUID()!).getDocuments { snapshot, error in
-            if let error = error {
-                print(error.localizedDescription)
-                return
+        NetworkManager.shared.getNote { notes in
+            self.noteList = notes
+            DispatchQueue.main.async {
+                self.noteCollectionView.reloadData()
             }
-            
-            guard let snapshot = snapshot else { return }
-            
-            for doc in snapshot.documents {
-                let data = doc.data()
-                let id = doc.documentID
-                let title = data["title"] as? String ?? ""
-                let note = data["note"] as? String ?? ""
-                let user = data["user"] as? String ?? ""
-                let date = data["date"] as? Date ?? Date()
-                
-                let newNote = NoteItem(id: id, title: title, note: note, user: user, date: date)
-                self.noteList.append(newNote)
-                
-            }
-            self.noteCollectionView.reloadData()
         }
-        
-        print(self.noteList)
     }
     
-    func configureScreen() {
-        let itemSize = UIScreen.main.bounds.width/2 - 14
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        layout.itemSize = CGSize(width: itemSize, height: itemSize)
-        layout.minimumLineSpacing = 2
-        layout.minimumInteritemSpacing = 2
-        noteCollectionView.collectionViewLayout = layout
-        
-        noteCollectionView.backgroundColor = .clear
+    func configureNavigationBar() {
         
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
@@ -74,17 +48,34 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(addPressed))
     }
     
+    func configureCollectionView() {
+        let itemSize = UIScreen.main.bounds.width/2 - 12
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        layout.itemSize = CGSize(width: itemSize, height: itemSize)
+        layout.minimumLineSpacing = 2
+        layout.minimumInteritemSpacing = 2
+        
+        noteCollectionView.collectionViewLayout = layout
+        noteCollectionView.backgroundColor = .clear
+    }
+    
     @objc func addPressed() {
         let addView = storyboard!.instantiateViewController(withIdentifier: "AddVC") as! AddItemViewController
         print(noteList)
+        
+        addView.isNew = true
+        
         navigationController?.pushViewController(addView, animated: true)
-        //        addView.modalPresentationStyle = .fullScreen
-        //        present(addView, animated: true, completion: nil)
     }
     
     @objc func handleMenu() {
-        //        print("Menu CLicked done")
         delegate?.menuHandler()
+    }
+    
+    @objc func deleteNote(_ sender: NoteCell) {
+        
+        print("Delete Pressed")
     }
     
     
@@ -96,9 +87,31 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "noteCell", for: indexPath) as! NoteCell
+        
+        let date = noteList[indexPath.row].date
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/YY"
+        
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "hh:mm"
+
         cell.titleText.text = noteList[indexPath.row].title
         cell.noteText.text = noteList[indexPath.row].note
+        cell.dateText.text = dateFormatter.string(from: date)
+        cell.timeText.text = timeFormatter.string(from: date)
+        cell.noteDelete.addTarget(self, action: #selector(deleteNote), for: .touchUpInside)
+
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let addView = storyboard!.instantiateViewController(withIdentifier: "AddVC") as! AddItemViewController
+        
+        addView.isNew = false
+        addView.note = noteList[indexPath.row]
+        
+        navigationController?.pushViewController(addView, animated: true)
     }
     
 }
