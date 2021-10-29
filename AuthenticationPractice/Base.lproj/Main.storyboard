@@ -188,7 +188,7 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="HCE-4S-znE"/>
-                        <color key="backgroundColor" red="0.18823529411764706" green="0.18823529411764706" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="x7B-Lw-WVd" firstAttribute="top" secondItem="HCE-4S-znE" secondAttribute="top" constant="50" id="3S4-ZY-YaV"/>
                             <constraint firstItem="HCE-4S-znE" firstAttribute="trailing" secondItem="x7B-Lw-WVd" secondAttribute="trailing" constant="50" id="R1f-F2-7WC"/>
@@ -214,7 +214,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="2Ug-9J-j3N">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="2Ug-9J-j3N" customClass="SideMenuCell" customModule="AuthenticationPractice" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2Ug-9J-j3N" id="Y1E-px-PUS">

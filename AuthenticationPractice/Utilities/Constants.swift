@@ -27,3 +27,9 @@ struct messageConstants {
     static let emptyFields = "Please fill all the Fields"
 }
 
+struct imageConstants {
+    static let gridView = "rectangle.grid.2x2.fill"
+    
+    static let lineView = "rectangle.grid.1x2.fill"
+}
+

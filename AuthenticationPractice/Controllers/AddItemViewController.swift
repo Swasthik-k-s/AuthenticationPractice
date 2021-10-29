@@ -50,12 +50,12 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
             showAlert(title: "Invalid", message: "Title or Note cannot be Empty")
         } else if isNew {
             
-            let content: [String: Any] = ["title": titleField.text!,
-                                          "note": noteField.text!,
-                                          "user": NetworkManager.shared.getUID()!,
-                                          "date": Date()]
+            let newNote = NoteItem(title: titleField.text!,
+                                   note: noteField.text!,
+                                   user: NetworkManager.shared.getUID()!,
+                                   date: Date())
             
-            NetworkManager.shared.addNote(note: content)
+            NetworkManager.shared.addNote(note: newNote.dictionary)
             
             navigationController?.popViewController(animated: true)
         } else {

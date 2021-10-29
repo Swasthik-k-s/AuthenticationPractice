@@ -14,6 +14,9 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
     @IBOutlet weak var noteCollectionView: UICollectionView!
     var delegate: MenuDelegate?
     var noteList: [NoteItem] = []
+    var isGridView: Bool = true
+    var viewModeButton: UIBarButtonItem = UIBarButtonItem()
+    let layout = UICollectionViewFlowLayout()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,12 +48,17 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3"), style: .plain, target: self, action: #selector(handleMenu))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(addPressed))
+        let addButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(addPressed))
+        
+        viewModeButton = UIBarButtonItem(image: UIImage(systemName: imageConstants.lineView), style: .plain, target: self, action: #selector(toggleCollectionView))
+        
+        navigationItem.rightBarButtonItems = [addButton, viewModeButton]
+        
     }
     
     func configureCollectionView() {
         let itemSize = UIScreen.main.bounds.width/2 - 12
-        let layout = UICollectionViewFlowLayout()
+        
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         layout.itemSize = CGSize(width: itemSize, height: itemSize)
         layout.minimumLineSpacing = 2
@@ -59,6 +67,25 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
 //        noteCollectionView.layer.cornerRadius = 10
         noteCollectionView.collectionViewLayout = layout
         noteCollectionView.backgroundColor = .clear
+    }
+    
+    @objc func toggleCollectionView() {
+        isGridView = !isGridView
+        let gridSize = UIScreen.main.bounds.width/2 - 12
+        let lineSize = UIScreen.main.bounds.width - 24
+        
+        if isGridView {
+            viewModeButton.image = UIImage(systemName: imageConstants.lineView)
+            
+            layout.itemSize = CGSize(width: gridSize, height: gridSize)
+            noteCollectionView.collectionViewLayout = layout
+        
+        } else {
+            viewModeButton.image = UIImage(systemName: imageConstants.gridView)
+            
+            layout.itemSize = CGSize(width: lineSize, height: gridSize)
+            noteCollectionView.collectionViewLayout = layout
+        }
     }
     
     @objc func addPressed() {
@@ -75,12 +102,21 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
     }
     
     @objc func deleteNote(_ sender: UIButton) {
-        let deleteNote = noteList[sender.tag]
-        print(deleteNote.title)
-        NetworkManager.shared.deleteNote(note: deleteNote)
-        noteList.remove(at: sender.tag)
-        noteCollectionView.reloadData()
-//        showAlert(title: "Delete " + deleteNote.title, message: "Are you Sure")
+        let note = self.noteList[sender.tag]
+        
+        let deleteNote = {
+            NetworkManager.shared.deleteNote(note: note)
+            self.noteList.remove(at: sender.tag)
+            self.noteCollectionView.reloadData()
+        }
+        
+        showAlertWithCancel(title: "Delete " + note.title, message: "Are you Sure", buttonText: "Delete", buttonAction: deleteNote)
+        
+//        let deleteNote = noteList[sender.tag]
+//        print(deleteNote.title)
+//        NetworkManager.shared.deleteNote(note: deleteNote)
+//        noteList.remove(at: sender.tag)
+//        noteCollectionView.reloadData()
         print("Deleted")
     }
     
@@ -100,7 +136,7 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
         dateFormatter.dateFormat = "dd/MM/YY"
         
         let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "hh:mm"
+        timeFormatter.dateFormat = "hh:mm a"
 
         cell.titleText.text = noteList[indexPath.row].title
         cell.noteText.text = noteList[indexPath.row].note

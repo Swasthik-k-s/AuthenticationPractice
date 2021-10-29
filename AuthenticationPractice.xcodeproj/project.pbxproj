@@ -14,6 +14,7 @@
 		FC679D1727252C1F00ECD0C8 /* DashBoardContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC679D1627252C1F00ECD0C8 /* DashBoardContainerViewController.swift */; };
 		FC679D19272544EE00ECD0C8 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC679D18272544EE00ECD0C8 /* Protocols.swift */; };
 		FC69BE8C2727B6D500ED0BB6 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC69BE8B2727B6D500ED0BB6 /* AddItemViewController.swift */; };
+		FC6D26C4272BB4F5009F0722 /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6D26C3272BB4F5009F0722 /* SideMenuCell.swift */; };
 		FC841F012723C710001118A2 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC841F002723C710001118A2 /* SideMenuController.swift */; };
 		FCB5C74B27294B6100005412 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB5C74A27294B6100005412 /* SettingsViewController.swift */; };
 		FCB5C74E27295A5900005412 /* NoteItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB5C74D27295A5900005412 /* NoteItem.swift */; };
@@ -52,6 +53,7 @@
 		FC679D1627252C1F00ECD0C8 /* DashBoardContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardContainerViewController.swift; sourceTree = "<group>"; };
 		FC679D18272544EE00ECD0C8 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		FC69BE8B2727B6D500ED0BB6 /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
+		FC6D26C3272BB4F5009F0722 /* SideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
 		FC841F002723C710001118A2 /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 		FCB5C74A27294B6100005412 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		FCB5C74D27295A5900005412 /* NoteItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteItem.swift; sourceTree = "<group>"; };
@@ -133,12 +135,21 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		FCB5C74C27295A3D00005412 /* Data */ = {
+		FC6D26C2272BB4CD009F0722 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				FCB5C74F2729940200005412 /* NoteCell.swift */,
+				FC6D26C3272BB4F5009F0722 /* SideMenuCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		FCB5C74C27295A3D00005412 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				FCB5C74D27295A5900005412 /* NoteItem.swift */,
 			);
-			path = Data;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		FCF5926F271E8F4300952150 = {
@@ -164,7 +175,8 @@
 		FCF5927A271E8F4300952150 /* AuthenticationPractice */ = {
 			isa = PBXGroup;
 			children = (
-				FCB5C74C27295A3D00005412 /* Data */,
+				FC6D26C2272BB4CD009F0722 /* Cell */,
+				FCB5C74C27295A3D00005412 /* Model */,
 				FC64D006272076DC0067BDCA /* API */,
 				FC64D009272086050067BDCA /* Utilities */,
 				FCF59298271E8FDB00952150 /* Controllers */,
@@ -190,7 +202,6 @@
 				FC679D1627252C1F00ECD0C8 /* DashBoardContainerViewController.swift */,
 				FC69BE8B2727B6D500ED0BB6 /* AddItemViewController.swift */,
 				FCB5C74A27294B6100005412 /* SettingsViewController.swift */,
-				FCB5C74F2729940200005412 /* NoteCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -365,6 +376,7 @@
 				FC3E2B8627214B1B00BF3E6F /* Constants.swift in Sources */,
 				FC679D1727252C1F00ECD0C8 /* DashBoardContainerViewController.swift in Sources */,
 				FCB5C7502729940200005412 /* NoteCell.swift in Sources */,
+				FC6D26C4272BB4F5009F0722 /* SideMenuCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

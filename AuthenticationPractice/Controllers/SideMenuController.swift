@@ -16,7 +16,8 @@ class SideMenuController: UITableViewController {
         super.viewDidLoad()
         
         tableView.backgroundColor = UIColor(red: 48/255.0, green: 48/255.0, blue: 48/255.0, alpha: 1.0)
-        tableView.separatorColor = .black
+        tableView.separatorColor = .yellow
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 80 + 20)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "menuItem")
         
     }
@@ -40,6 +41,8 @@ class SideMenuController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         if menuList[indexPath.row] == "LOGOUT" {
             let isSignedOut = NetworkManager.shared.signout()
             
@@ -51,7 +54,7 @@ class SideMenuController: UITableViewController {
         }
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return UIScreen.main.bounds.height / 15
     }
     
     /*

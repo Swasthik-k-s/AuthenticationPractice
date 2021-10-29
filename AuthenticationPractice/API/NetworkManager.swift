@@ -63,7 +63,7 @@ struct NetworkManager {
     
     func updateNote(note: NoteItem) {
 
-        database.collection("notes").document(note.id).updateData(["title": note.title, "note": note.note]) { error in
+        database.collection("notes").document(note.id!).updateData(["title": note.title, "note": note.note]) { error in
             if let error = error {
                 print(error.localizedDescription)
             }
@@ -71,21 +71,21 @@ struct NetworkManager {
     }
     
     func deleteNote(note: NoteItem) {
-        database.collection("notes").document(note.id).delete { error in
+        database.collection("notes").document(note.id!).delete { error in
             if let error = error {
                 print(error.localizedDescription)
             }
         }
     }
     
-    func writeDB(collectionName: String, data: [String: Any]) {
+    func addUser(collectionName: String, data: [String: Any]) {
 //        let db = Firestore.firestore()
         
         database.collection(collectionName).document(getUID()!).setData(data)
     }
     
-    func readDB(documentName: String) {
-
+    func getUser() {
+        
     }
     
     func signout() -> Bool {

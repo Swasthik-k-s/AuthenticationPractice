@@ -9,9 +9,18 @@ import FirebaseFirestore
 import Foundation
 
 struct NoteItem: Codable {
-    var id: String
+    var id: String?
     var title: String
     var note: String
     var user: String
     var date: Date
+    
+    var dictionary: [String: Any] {
+        return [
+            "title": title,
+            "note": note,
+            "user": user,
+            "date": date
+        ]
+    }
 }

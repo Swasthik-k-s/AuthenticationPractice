@@ -29,11 +29,26 @@ class ViewController: UIViewController {
         let signInConfig = GIDConfiguration.init(clientID: APIConstants.clientID)
         
         GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { user, error in
-            if error == nil {
-                print("Done")
-                self.navigateHomeScreen()
-            } else {
-                print("Failed")
+            if let error = error {
+                self.showAlert(title: "Failed", message: error.localizedDescription)
+                return
+            }
+            guard let authentication = user?.authentication,
+                  let idToken = authentication.idToken else { return }
+            
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: authentication.accessToken)
+            
+            Auth.auth().signIn(with: credential) { user, error in
+                if let error = error {
+                    self.showAlert(title: "Login Error", message: error.localizedDescription)
+                    return
+                } else {
+                    
+//                    let content: [String: Any] = ["username": "fb",
+//                                                  "uid": Auth.auth().currentUser?.uid ?? ""]
+//                    NetworkManager.shared.writeDB(collectionName: "users",data: content)
+                    self.navigateHomeScreen()
+                }
             }
         }
         
@@ -43,7 +58,7 @@ class ViewController: UIViewController {
         let loginManager = LoginManager()
         loginManager.logIn(permissions: ["public_profile", "email"], from: self) { result, error in
             if let error = error {
-                print("Failed to Login: \(error.localizedDescription)")
+                self.showAlert(title: "Failed", message: error.localizedDescription)
                 return
             }
             guard let accessToken = AccessToken.current else {
@@ -52,16 +67,15 @@ class ViewController: UIViewController {
             }
             
             let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
-            
+        
             Auth.auth().signIn(with: credential) { user, error in
                 if let error = error {
-                    print("Login Error: \(error.localizedDescription)")
                     self.showAlert(title: "Login Error", message: error.localizedDescription)
                     return
                 } else {
-                    let content: [String: Any] = ["username": "",
-                                                  "uid": Auth.auth().currentUser?.uid ?? ""]
-                    NetworkManager.shared.writeDB(collectionName: "users",data: content)
+                    
+//                    let content: [String: Any] = ["username": "fb", "uid": Auth.auth().currentUser?.uid ?? ""]
+//                    NetworkManager.shared.addUser(collectionName: "users",data: content)
                     self.navigateHomeScreen()
                 }
             }
