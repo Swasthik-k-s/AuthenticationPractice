@@ -12,7 +12,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     var noteArray = [NoteItem]()
     var isNew: Bool = true
     var note: NoteItem?
-    
+    var realmNote: RealmNote?
     
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var noteField: UITextField!
@@ -20,7 +20,6 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         navigationItem.title = isNew ? "ADD NOTE" : "EDIT NOTE"
         
@@ -55,7 +54,14 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
                                    user: NetworkManager.shared.getUID()!,
                                    date: Date())
             
+            let realmNote = RealmNote()
+            realmNote.title = titleField.text!
+            realmNote.note = noteField.text!
+            realmNote.user = NetworkManager.shared.getUID()!
+            realmNote.date = Date()
+            
             NetworkManager.shared.addNote(note: newNote.dictionary)
+            PersistentManager.shared.addNote(note: realmNote)
             
             navigationController?.popViewController(animated: true)
         } else {
@@ -63,6 +69,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
             note?.note = noteField.text!
             
             NetworkManager.shared.updateNote(note: note!)
+            PersistentManager.shared.updateNote(note: realmNote!, title: titleField.text!, description: noteField.text!)
             navigationController?.popViewController(animated: true)
         }
     }

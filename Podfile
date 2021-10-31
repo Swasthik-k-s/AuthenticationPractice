@@ -12,6 +12,8 @@ pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
 pod 'Firebase/Core'
 
+pod 'RealmSwift'
+
 pod 'GoogleSignIn'
 pod 'SideMenu'
 

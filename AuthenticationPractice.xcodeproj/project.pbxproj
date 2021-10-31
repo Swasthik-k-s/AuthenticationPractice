@@ -15,6 +15,9 @@
 		FC679D19272544EE00ECD0C8 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC679D18272544EE00ECD0C8 /* Protocols.swift */; };
 		FC69BE8C2727B6D500ED0BB6 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC69BE8B2727B6D500ED0BB6 /* AddItemViewController.swift */; };
 		FC6D26C4272BB4F5009F0722 /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6D26C3272BB4F5009F0722 /* SideMenuCell.swift */; };
+		FC6D26C6272C614D009F0722 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6D26C5272C614D009F0722 /* AccountViewController.swift */; };
+		FC6D26C8272E6349009F0722 /* PersistentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6D26C7272E6349009F0722 /* PersistentManager.swift */; };
+		FC6D26CA272E6CCD009F0722 /* RealmNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6D26C9272E6CCD009F0722 /* RealmNote.swift */; };
 		FC841F012723C710001118A2 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC841F002723C710001118A2 /* SideMenuController.swift */; };
 		FCB5C74B27294B6100005412 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB5C74A27294B6100005412 /* SettingsViewController.swift */; };
 		FCB5C74E27295A5900005412 /* NoteItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB5C74D27295A5900005412 /* NoteItem.swift */; };
@@ -54,6 +57,9 @@
 		FC679D18272544EE00ECD0C8 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		FC69BE8B2727B6D500ED0BB6 /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 		FC6D26C3272BB4F5009F0722 /* SideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
+		FC6D26C5272C614D009F0722 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		FC6D26C7272E6349009F0722 /* PersistentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentManager.swift; sourceTree = "<group>"; };
+		FC6D26C9272E6CCD009F0722 /* RealmNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNote.swift; sourceTree = "<group>"; };
 		FC841F002723C710001118A2 /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 		FCB5C74A27294B6100005412 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		FCB5C74D27295A5900005412 /* NoteItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteItem.swift; sourceTree = "<group>"; };
@@ -121,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				FC64D007272077020067BDCA /* NetworkManager.swift */,
+				FC6D26C7272E6349009F0722 /* PersistentManager.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -148,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				FCB5C74D27295A5900005412 /* NoteItem.swift */,
+				FC6D26C9272E6CCD009F0722 /* RealmNote.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -202,6 +210,7 @@
 				FC679D1627252C1F00ECD0C8 /* DashBoardContainerViewController.swift */,
 				FC69BE8B2727B6D500ED0BB6 /* AddItemViewController.swift */,
 				FCB5C74A27294B6100005412 /* SettingsViewController.swift */,
+				FC6D26C5272C614D009F0722 /* AccountViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -365,9 +374,11 @@
 				FCF5927C271E8F4300952150 /* AppDelegate.swift in Sources */,
 				FC679D19272544EE00ECD0C8 /* Protocols.swift in Sources */,
 				FCF59293271E8FAC00952150 /* LoginViewController.swift in Sources */,
+				FC6D26CA272E6CCD009F0722 /* RealmNote.swift in Sources */,
 				FC69BE8C2727B6D500ED0BB6 /* AddItemViewController.swift in Sources */,
 				FC64D008272077020067BDCA /* NetworkManager.swift in Sources */,
 				FCF59297271E8FCC00952150 /* HomeViewController.swift in Sources */,
+				FC6D26C6272C614D009F0722 /* AccountViewController.swift in Sources */,
 				FCF5927E271E8F4300952150 /* SceneDelegate.swift in Sources */,
 				FCB5C74E27295A5900005412 /* NoteItem.swift in Sources */,
 				FCB5C74B27294B6100005412 /* SettingsViewController.swift in Sources */,
@@ -375,6 +386,7 @@
 				FC841F012723C710001118A2 /* SideMenuController.swift in Sources */,
 				FC3E2B8627214B1B00BF3E6F /* Constants.swift in Sources */,
 				FC679D1727252C1F00ECD0C8 /* DashBoardContainerViewController.swift in Sources */,
+				FC6D26C8272E6349009F0722 /* PersistentManager.swift in Sources */,
 				FCB5C7502729940200005412 /* NoteCell.swift in Sources */,
 				FC6D26C4272BB4F5009F0722 /* SideMenuCell.swift in Sources */,
 			);

@@ -11,4 +11,5 @@
 
 protocol MenuDelegate {
     func menuHandler()
+    func didSelectMenu(menuItem: String)
 }

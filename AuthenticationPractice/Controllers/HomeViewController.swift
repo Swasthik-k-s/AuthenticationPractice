@@ -8,34 +8,74 @@
 import UIKit
 import GoogleSignIn
 import FirebaseFirestore
+import RealmSwift
 
 class HomeViewController: UIViewController,UICollectionViewDataSource, UICollectionViewDelegate {
     
     @IBOutlet weak var noteCollectionView: UICollectionView!
+    @IBOutlet weak var emptyLabel: UILabel!
+    
     var delegate: MenuDelegate?
     var noteList: [NoteItem] = []
+    var realmList: [RealmNote] = []
+    
+    var currentList: [NoteItem] = []
+    
+    
     var isGridView: Bool = true
     var viewModeButton: UIBarButtonItem = UIBarButtonItem()
     let layout = UICollectionViewFlowLayout()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //        let realm = try! Realm()
+                
         configureNavigationBar()
         configureCollectionView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         getData()
+        getRealmData()
+        
+        self.noteCollectionView.reloadData()
+        
     }
     
     func getData() {
+        //Fetch firebase notes
         NetworkManager.shared.getNote { notes in
             self.noteList = notes
+            
+            //Show firebase content in collection view
+            
+            self.currentList = self.noteList
             DispatchQueue.main.async {
+                if self.currentList.isEmpty {
+                    self.noteCollectionView.isHidden = true
+                    self.emptyLabel.isHidden = false
+                } else {
+                    self.noteCollectionView.isHidden = false
+                    self.emptyLabel.isHidden = true
+                }
                 self.noteCollectionView.reloadData()
             }
+        }
+    }
+    
+    func getRealmData() {
+        //Fetch realm notes
+        PersistentManager.shared.getNote { notes in
+            self.realmList = notes
+            
+            //Show realm content in collection view
+            
+//            self.currentList = self.realmList
+//            DispatchQueue.main.async {
+//                self.noteCollectionView.reloadData()
+//            }
         }
     }
     
@@ -44,11 +84,11 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationController?.navigationBar.backgroundColor = UIColor(red: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1.0)
-        navigationItem.title = "HOME"
+        navigationItem.title = menuItemConstants.home
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3"), style: .plain, target: self, action: #selector(handleMenu))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: imageConstants.menu), style: .plain, target: self, action: #selector(handleMenu))
         
-        let addButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(addPressed))
+        let addButton = UIBarButtonItem(image: UIImage(systemName: imageConstants.add), style: .plain, target: self, action: #selector(addPressed))
         
         viewModeButton = UIBarButtonItem(image: UIImage(systemName: imageConstants.lineView), style: .plain, target: self, action: #selector(toggleCollectionView))
         
@@ -64,7 +104,7 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
         layout.minimumLineSpacing = 2
         layout.minimumInteritemSpacing = 2
         
-//        noteCollectionView.layer.cornerRadius = 10
+        //        noteCollectionView.layer.cornerRadius = 10
         noteCollectionView.collectionViewLayout = layout
         noteCollectionView.backgroundColor = .clear
     }
@@ -79,7 +119,7 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
             
             layout.itemSize = CGSize(width: gridSize, height: gridSize)
             noteCollectionView.collectionViewLayout = layout
-        
+            
         } else {
             viewModeButton.image = UIImage(systemName: imageConstants.gridView)
             
@@ -89,6 +129,8 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
     }
     
     @objc func addPressed() {
+        print(Realm.Configuration.defaultConfiguration.fileURL ?? "url not found")
+        
         let addView = storyboard!.instantiateViewController(withIdentifier: "AddVC") as! AddItemViewController
         print(noteList)
         
@@ -103,49 +145,50 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
     
     @objc func deleteNote(_ sender: UIButton) {
         let note = self.noteList[sender.tag]
+        let realmNote = self.realmList[sender.tag]
         
         let deleteNote = {
             NetworkManager.shared.deleteNote(note: note)
+            PersistentManager.shared.deleteNote(note: realmNote)
             self.noteList.remove(at: sender.tag)
+            self.realmList.remove(at: sender.tag)
+            self.currentList.remove(at: sender.tag)
+            
             self.noteCollectionView.reloadData()
         }
         
         showAlertWithCancel(title: "Delete " + note.title, message: "Are you Sure", buttonText: "Delete", buttonAction: deleteNote)
         
-//        let deleteNote = noteList[sender.tag]
-//        print(deleteNote.title)
-//        NetworkManager.shared.deleteNote(note: deleteNote)
-//        noteList.remove(at: sender.tag)
-//        noteCollectionView.reloadData()
         print("Deleted")
     }
     
     
     //MARK: Collection View
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(noteList.count)
-        return noteList.count
+        print(currentList.count)
+        return currentList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "noteCell", for: indexPath) as! NoteCell
         
-        let date = noteList[indexPath.row].date
+        let date = currentList[indexPath.row].date
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/YY"
         
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "hh:mm a"
-
-        cell.titleText.text = noteList[indexPath.row].title
-        cell.noteText.text = noteList[indexPath.row].note
+        
+        cell.titleText.text = currentList[indexPath.row].title
+        cell.noteText.text = currentList[indexPath.row].note
         cell.dateText.text = dateFormatter.string(from: date)
         cell.timeText.text = timeFormatter.string(from: date)
         
         cell.noteDelete.tag = indexPath.row
         cell.noteDelete.addTarget(self, action: #selector(deleteNote), for: .touchUpInside)
-
+        
         return cell
     }
     
@@ -154,6 +197,7 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
         
         addView.isNew = false
         addView.note = noteList[indexPath.row]
+        addView.realmNote = realmList[indexPath.row]
         
         navigationController?.pushViewController(addView, animated: true)
     }

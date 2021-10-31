@@ -8,8 +8,10 @@
 import UIKit
 
 class SideMenuCell: UITableViewCell {
-
-    @IBOutlet var label: UILabel!
+    
+    @IBOutlet weak var menuLabel: UILabel!
+    @IBOutlet weak var iconImage: UIImageView!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
