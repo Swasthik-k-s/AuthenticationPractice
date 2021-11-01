@@ -15,12 +15,13 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
     @IBOutlet weak var noteCollectionView: UICollectionView!
     @IBOutlet weak var emptyLabel: UILabel!
     
+    let searchBar = UISearchBar()
+    
     var delegate: MenuDelegate?
     var noteList: [NoteItem] = []
     var realmList: [RealmNote] = []
     
     var currentList: [NoteItem] = []
-    
     
     var isGridView: Bool = true
     var viewModeButton: UIBarButtonItem = UIBarButtonItem()
@@ -29,16 +30,20 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
     override func viewDidLoad() {
         super.viewDidLoad()
         //        let realm = try! Realm()
-                
+        
         configureNavigationBar()
         configureCollectionView()
+        configureScreen()
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        getData()
-        getRealmData()
+        if NetworkManager.shared.getUID() != nil {
+            getData()
+            getRealmData()
+        }
         
         self.noteCollectionView.reloadData()
         
@@ -72,19 +77,18 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
             
             //Show realm content in collection view
             
-//            self.currentList = self.realmList
-//            DispatchQueue.main.async {
-//                self.noteCollectionView.reloadData()
-//            }
+            //            self.currentList = self.realmList
+            //            DispatchQueue.main.async {
+            //                self.noteCollectionView.reloadData()
+            //            }
         }
     }
     
     func configureNavigationBar() {
         
-        navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-        navigationController?.navigationBar.backgroundColor = UIColor(red: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1.0)
+        //        navigationController?.navigationBar.backgroundColor = UIColor(red: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1.0)
         navigationItem.title = menuItemConstants.home
+        searchBar.sizeToFit()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: imageConstants.menu), style: .plain, target: self, action: #selector(handleMenu))
         
@@ -92,8 +96,13 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
         
         viewModeButton = UIBarButtonItem(image: UIImage(systemName: imageConstants.lineView), style: .plain, target: self, action: #selector(toggleCollectionView))
         
-        navigationItem.rightBarButtonItems = [addButton, viewModeButton]
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonPressed))
         
+        navigationItem.rightBarButtonItems = [addButton, viewModeButton, searchButton]
+    }
+    
+    @objc func searchButtonPressed() {
+        print("search pressed")
     }
     
     func configureCollectionView() {
@@ -103,8 +112,7 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
         layout.itemSize = CGSize(width: itemSize, height: itemSize)
         layout.minimumLineSpacing = 2
         layout.minimumInteritemSpacing = 2
-        
-        //        noteCollectionView.layer.cornerRadius = 10
+
         noteCollectionView.collectionViewLayout = layout
         noteCollectionView.backgroundColor = .clear
     }
