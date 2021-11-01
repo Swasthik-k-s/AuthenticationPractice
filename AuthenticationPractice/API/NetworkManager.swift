@@ -9,6 +9,8 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 import GoogleSignIn
+import FirebaseStorage
+import UIKit
 
 struct NetworkManager {
     static let shared = NetworkManager()
@@ -32,7 +34,7 @@ struct NetworkManager {
     }
     
     func getNote(completion: @escaping([NoteItem]) -> Void) {
-//        let db = Firestore.firestore()
+        //        let db = Firestore.firestore()
         guard let uid = NetworkManager.shared.getUID() else { return }
         
         database.collection("notes").whereField("user", isEqualTo: uid).getDocuments { snapshot, error in
@@ -57,12 +59,12 @@ struct NetworkManager {
                 notes.append(newNote)
             }
             completion(notes)
-//            print(noteList)
+            //            print(noteList)
         }
     }
     
     func updateNote(note: NoteItem) {
-
+        
         database.collection("notes").document(note.id!).updateData(["title": note.title, "note": note.note]) { error in
             if let error = error {
                 print(error.localizedDescription)
@@ -79,7 +81,7 @@ struct NetworkManager {
     }
     
     func addUser(collectionName: String, data: [String: Any]) {
-//        let db = Firestore.firestore()
+        //        let db = Firestore.firestore()
         
         database.collection(collectionName).document(getUID()!).setData(data)
     }
@@ -88,14 +90,27 @@ struct NetworkManager {
         
     }
     
+    func downloadImage(fromURL urlString: String, completion: @escaping(UIImage?) -> Void) {
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+            guard let data = data, error == nil else { return }
+            let image = UIImage(data: data)
+            completion(image)
+        }
+        
+        task.resume()
+    }
+    
     func signout() -> Bool {
         let firebaseAuth = Auth.auth()
         do {
-          try firebaseAuth.signOut()
+            try firebaseAuth.signOut()
             GIDSignIn.sharedInstance.signOut()
             return true
         } catch let signOutError as NSError {
-          print("Error signing out: %@", signOutError)
+            print("Error signing out: %@", signOutError)
         }
         return false
     }

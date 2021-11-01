@@ -23,7 +23,6 @@ struct PersistentManager {
         var notesArray: [RealmNote] = []
         
         let uid = NetworkManager.shared.getUID()!
-        
         let notes = realm.objects(RealmNote.self).filter("user = '\(uid)'")
         
         for note in notes {
