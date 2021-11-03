@@ -13,3 +13,7 @@ protocol MenuDelegate {
     func menuHandler()
     func didSelectMenu(menuItem: String)
 }
+
+protocol DeleteCellDelegate {
+    func deleteNote(note: NoteItem)
+}

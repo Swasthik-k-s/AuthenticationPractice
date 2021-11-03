@@ -15,13 +15,14 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
     @IBOutlet weak var noteCollectionView: UICollectionView!
     @IBOutlet weak var emptyLabel: UILabel!
     
-    let searchBar = UISearchBar()
-    
     var delegate: MenuDelegate?
     var noteList: [NoteItem] = []
-    var realmList: [RealmNote] = []
-    
-    var currentList: [NoteItem] = []
+    var searchedNote: [NoteItem] = []
+    let searchController = UISearchController(searchResultsController: nil)
+    var hasMoreNotes = true
+    private var inSearchMode: Bool {
+        return !searchController.searchBar.text!.isEmpty
+    }
     
     var isGridView: Bool = true
     var viewModeButton: UIBarButtonItem = UIBarButtonItem()
@@ -29,66 +30,25 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        let realm = try! Realm()
         
         configureNavigationBar()
         configureCollectionView()
         configureScreen()
-       
+        configureSearch()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        hasMoreNotes = true
         if NetworkManager.shared.getUID() != nil {
             getData()
-            getRealmData()
         }
-        
         self.noteCollectionView.reloadData()
-        
-    }
-    
-    func getData() {
-        //Fetch firebase notes
-        NetworkManager.shared.getNote { notes in
-            self.noteList = notes
-            
-            //Show firebase content in collection view
-            
-            self.currentList = self.noteList
-            DispatchQueue.main.async {
-                if self.currentList.isEmpty {
-                    self.noteCollectionView.isHidden = true
-                    self.emptyLabel.isHidden = false
-                } else {
-                    self.noteCollectionView.isHidden = false
-                    self.emptyLabel.isHidden = true
-                }
-                self.noteCollectionView.reloadData()
-            }
-        }
-    }
-    
-    func getRealmData() {
-        //Fetch realm notes
-        PersistentManager.shared.getNote { notes in
-            self.realmList = notes
-            
-            //Show realm content in collection view
-            
-            //            self.currentList = self.realmList
-            //            DispatchQueue.main.async {
-            //                self.noteCollectionView.reloadData()
-            //            }
-        }
     }
     
     func configureNavigationBar() {
         
-        //        navigationController?.navigationBar.backgroundColor = UIColor(red: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1.0)
         navigationItem.title = menuItemConstants.home
-        searchBar.sizeToFit()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: imageConstants.menu), style: .plain, target: self, action: #selector(handleMenu))
         
@@ -96,13 +56,7 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
         
         viewModeButton = UIBarButtonItem(image: UIImage(systemName: imageConstants.lineView), style: .plain, target: self, action: #selector(toggleCollectionView))
         
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonPressed))
-        
-        navigationItem.rightBarButtonItems = [addButton, viewModeButton, searchButton]
-    }
-    
-    @objc func searchButtonPressed() {
-        print("search pressed")
+        navigationItem.rightBarButtonItems = [addButton, viewModeButton]
     }
     
     func configureCollectionView() {
@@ -112,11 +66,106 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
         layout.itemSize = CGSize(width: itemSize, height: itemSize)
         layout.minimumLineSpacing = 2
         layout.minimumInteritemSpacing = 2
-
+        
         noteCollectionView.collectionViewLayout = layout
         noteCollectionView.backgroundColor = .clear
     }
     
+    func configureSearch() {
+        searchController.loadViewIfNeeded()
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.enablesReturnKeyAutomatically = false
+        searchController.searchBar.returnKeyType = UIReturnKeyType.done
+        self.navigationItem.searchController = searchController
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
+        searchController.searchBar.placeholder = "Search Note"
+    }
+    
+    func updateUI(notes: [NoteItem]) {
+        self.noteList = notes
+        if notes.count < 10 {
+            self.hasMoreNotes = false
+        }
+        
+        self.noteList = notes
+        DispatchQueue.main.async {
+            self.handleEmptyState(array: self.noteList)
+            self.noteCollectionView.reloadData()
+        }
+    }
+    
+    func getData() {
+        
+        NetworkManager.shared.resultType { result in
+            switch result {
+                
+            case .success(let notes):
+                self.updateUI(notes: notes)
+
+            case .failure(let error):
+                self.showAlert(title: "Error while Fetching Notes", message: error.localizedDescription)
+            }
+        }
+        
+//        NetworkManager.shared.fetchNotes { notes, error in
+//            if let error = error {
+//                self.showAlert(title: "Error while Fetching Notes", message: error.localizedDescription)
+//                return
+//            }
+//            guard let notes = notes else {
+//                return
+//            }
+//
+//            if notes.count < 10 {
+//                self.hasMoreNotes = false
+//            }
+//
+//            self.noteList = notes
+//            DispatchQueue.main.async {
+//                self.handleEmptyState(array: self.noteList)
+//                self.noteCollectionView.reloadData()
+//            }
+//        }
+        
+//        NetworkManager.shared.fetchNotes { notes, error in
+//            print(notes!.count)
+//            if notes!.count < 10 {
+//                self.hasMoreNotes = false
+//            }
+//            self.noteList = notes
+//            DispatchQueue.main.async {
+//                self.handleEmptyState(array: self.noteList)
+//                self.noteCollectionView.reloadData()
+//            }
+            
+//        }
+        
+        //Fetch firebase notes
+        //        NetworkManager.shared.getNote { notes in
+        //            self.noteList = notes
+        //
+        //            //Show firebase content in collection view
+        //            DispatchQueue.main.async {
+        //                self.handleEmptyState(array: self.noteList)
+        //                self.noteCollectionView.reloadData()
+        //            }
+        //        }
+    }
+    
+    func handleEmptyState(array: [NoteItem]) {
+        if array.count == 0 {
+            emptyLabel.isHidden = false
+            noteCollectionView.isHidden = true
+        } else {
+            emptyLabel.isHidden = true
+            noteCollectionView.isHidden = false
+        }
+    }
+    
+    //OBJC Functions
     @objc func toggleCollectionView() {
         isGridView = !isGridView
         let gridSize = UIScreen.main.bounds.width/2 - 12
@@ -140,7 +189,6 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
         print(Realm.Configuration.defaultConfiguration.fileURL ?? "url not found")
         
         let addView = storyboard!.instantiateViewController(withIdentifier: "AddVC") as! AddItemViewController
-        print(noteList)
         
         addView.isNew = true
         
@@ -151,37 +199,14 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
         delegate?.menuHandler()
     }
     
-    @objc func deleteNote(_ sender: UIButton) {
-        let note = self.noteList[sender.tag]
-        let realmNote = self.realmList[sender.tag]
-        
-        let deleteNote = {
-            NetworkManager.shared.deleteNote(note: note)
-            PersistentManager.shared.deleteNote(note: realmNote)
-            self.noteList.remove(at: sender.tag)
-            self.realmList.remove(at: sender.tag)
-            self.currentList.remove(at: sender.tag)
-            
-            self.noteCollectionView.reloadData()
-        }
-        
-        showAlertWithCancel(title: "Delete " + note.title, message: "Are you Sure", buttonText: "Delete", buttonAction: deleteNote)
-        
-        print("Deleted")
-    }
-    
-    
     //MARK: Collection View
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(currentList.count)
-        return currentList.count
+        return inSearchMode ? searchedNote.count : noteList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "noteCell", for: indexPath) as! NoteCell
-        
-        let date = currentList[indexPath.row].date
+        cell.layer.cornerRadius = 10
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/YY"
@@ -189,13 +214,16 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "hh:mm a"
         
-        cell.titleText.text = currentList[indexPath.row].title
-        cell.noteText.text = currentList[indexPath.row].note
+        let note = inSearchMode ? searchedNote[indexPath.row] : noteList[indexPath.row]
+        
+        let date = note.date
+        
+        cell.titleText.text = note.title
+        cell.noteText.text = note.note
         cell.dateText.text = dateFormatter.string(from: date)
         cell.timeText.text = timeFormatter.string(from: date)
-        
-        cell.noteDelete.tag = indexPath.row
-        cell.noteDelete.addTarget(self, action: #selector(deleteNote), for: .touchUpInside)
+        cell.currentNote = note
+        cell.delegate = self
         
         return cell
     }
@@ -204,12 +232,91 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
         let addView = storyboard!.instantiateViewController(withIdentifier: "AddVC") as! AddItemViewController
         
         addView.isNew = false
-        addView.note = noteList[indexPath.row]
-        addView.realmNote = realmList[indexPath.row]
+        
+        addView.note = inSearchMode ? searchedNote[indexPath.row] : noteList[indexPath.row]
         
         navigationController?.pushViewController(addView, animated: true)
     }
+}
+
+extension HomeViewController: DeleteCellDelegate {
     
+    func deleteNote(note: NoteItem) {
+        
+        let deleteNote = {
+            DatabaseManager.shared.deleteNote(note: note)
+            self.searchController.isActive = false
+            self.getData()
+        }
+        
+        showAlertWithCancel(title: "Delete " + note.title, message: "Are you Sure", buttonText: "Delete", buttonAction: deleteNote)
+    }
+}
+
+extension HomeViewController: UISearchResultsUpdating, UISearchBarDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchText = searchController.searchBar.text!
+        
+        if inSearchMode {
+            searchedNote.removeAll()
+            
+            for note in noteList {
+                if note.title.lowercased().contains(searchText.lowercased()) || note.note.lowercased().contains(searchText.lowercased()) {
+                    searchedNote.append(note)
+                }
+            }
+            handleEmptyState(array: searchedNote)
+        }
+        noteCollectionView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        handleEmptyState(array: noteList)
+        noteCollectionView.reloadData()
+    }
+}
+
+extension HomeViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.size.height
+        
+        if offsetY > contentHeight - height {
+            print("??????????")
+            
+            guard hasMoreNotes else { return }
+            print(fetchingMoreNotes)
+
+            guard !fetchingMoreNotes else {
+                print("fetching more note completed")
+                return
+            }
+
+            NetworkManager.shared.fetchMoreNotes { notes in
+                if notes.count < 10 {
+                    self.hasMoreNotes = false
+                }
+                self.noteList.append(contentsOf: notes)
+                print(self.noteList.count)
+                self.noteCollectionView.reloadData()
+            }
+        }
+    }
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let position = scrollView.contentOffset.y
+//
+//        print("Position \(position)")
+//        print("number \(noteCollectionView.contentSize.height - scrollView.frame.size.height - 100)")
+//        print("collection view height \(noteCollectionView.contentSize.height)")
+//
+//        if position > noteCollectionView.contentSize.height - scrollView.frame.size.height - 100 {
+            
+
+//        }
+//
+//    }
 }
 
 

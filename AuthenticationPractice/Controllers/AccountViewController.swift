@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseStorage
 
 class AccountViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
@@ -16,15 +15,17 @@ class AccountViewController: UIViewController, UIImagePickerControllerDelegate &
     @IBOutlet var uploadButton: UIButton!
     @IBOutlet weak var removeButton: UIButton!
     
-    let defaultImage: UIImage = UIImage(systemName: "person")!
-    
-    private let storage = Storage.storage().reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigation()
         configureScreen()
         getImage()
+        
+        profileImage.layer.cornerRadius = 20
+//        profileImage.clipsToBounds = true
+        profileImage.layer.borderColor = UIColor.white.cgColor
+        profileImage.layer.borderWidth = 5
         // Do any additional setup after loading the view.
     }
     
@@ -37,7 +38,7 @@ class AccountViewController: UIViewController, UIImagePickerControllerDelegate &
     }
     
     @IBAction func removeButtonPressed(_ sender: UIButton) {
-        self.profileImage.image = self.defaultImage
+        self.profileImage.image = imageConstants.defaultProfile
         UserDefaults.standard.set("", forKey: "url")
         removeButton.isHidden = true
     }
@@ -47,7 +48,7 @@ class AccountViewController: UIViewController, UIImagePickerControllerDelegate &
         
         NetworkManager.shared.downloadImage(fromURL: urlString) { image in
             guard let image = image else {
-                self.profileImage.image = self.defaultImage
+                self.profileImage.image = imageConstants.defaultProfile
                 return
             }
             DispatchQueue.main.async {
@@ -63,33 +64,9 @@ class AccountViewController: UIViewController, UIImagePickerControllerDelegate &
             return
         }
         self.profileImage.image = image
+        self.removeButton.isHidden = false
         
-        guard let imageData = image.pngData() else {
-            
-            return
-        }
-        
-        storage.child("profile/file.png").putData(imageData, metadata: nil) { _, error in
-            guard error == nil else {
-                return
-            }
-            
-            self.storage.child("profile/file.png").downloadURL { url, error in
-                guard let url = url, error == nil else {
-                    return
-                }
-                
-                let urlString = url.absoluteString
-                
-                DispatchQueue.main.async {
-                    
-                    self.removeButton.isHidden = false
-                }
-                
-                print("Download URL: \(urlString)")
-                UserDefaults.standard.set(urlString, forKey: "url")
-            }
-        }
+        ImageUploader.uploadImage(image: image)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

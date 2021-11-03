@@ -12,6 +12,9 @@ import GoogleSignIn
 import FirebaseStorage
 import UIKit
 
+var lastDoc: QueryDocumentSnapshot?
+var fetchingMoreNotes = false
+
 struct NetworkManager {
     static let shared = NetworkManager()
     
@@ -60,6 +63,106 @@ struct NetworkManager {
             }
             completion(notes)
             //            print(noteList)
+        }
+    }
+    
+    func fetchMoreNotes(completion: @escaping([NoteItem]) -> Void) {
+        
+        fetchingMoreNotes = true
+        print("Inside Fetch More Note")
+        guard let uid = NetworkManager.shared.getUID() else { return }
+        guard let lastDocument = lastDoc else { return }
+        
+        database.collection("notes").whereField("user", isEqualTo: uid).start(afterDocument: lastDocument).limit(to: 10).getDocuments { snapshot, error in
+            var notes: [NoteItem] = []
+            
+            
+            if error != nil {
+                print(error!.localizedDescription)
+                return
+            }
+            
+            guard let snapshot = snapshot else { return }
+            
+            for doc in snapshot.documents {
+                let data = doc.data()
+                let id = doc.documentID
+                let title = data["title"] as? String ?? ""
+                let note = data["note"] as? String ?? ""
+                let user = data["user"] as? String ?? ""
+                let date = (data["date"] as? Timestamp)?.dateValue() ?? Date()
+                
+                let newNote = NoteItem(id: id, title: title, note: note, user: user, date: date)
+                notes.append(newNote)
+            }
+            lastDoc = snapshot.documents.last
+            print("|||||||||||||||||||||||||||||||||||||")
+            fetchingMoreNotes = false
+            print(notes)
+            completion(notes)
+        }
+    }
+    
+    func resultType(completion: @escaping(Result<[NoteItem], Error>) -> Void) {
+        
+        guard let uid = NetworkManager.shared.getUID() else { return }
+        
+        database.collection("notes").whereField("user", isEqualTo: uid).limit(to: 10).getDocuments { snapshot, error in
+            var notes: [NoteItem] = []
+            
+            if let error = error {
+                completion(.failure(error))
+                print(error.localizedDescription)
+                return
+            }
+            
+            guard let snapshot = snapshot else { return }
+            
+            for doc in snapshot.documents {
+                let data = doc.data()
+                let id = doc.documentID
+                let title = data["title"] as? String ?? ""
+                let note = data["note"] as? String ?? ""
+                let user = data["user"] as? String ?? ""
+                let date = (data["date"] as? Timestamp)?.dateValue() ?? Date()
+                
+                let newNote = NoteItem(id: id, title: title, note: note, user: user, date: date)
+                notes.append(newNote)
+            }
+            lastDoc = snapshot.documents.last
+//            completion(notes, nil)
+            completion(.success(notes))
+        }
+    }
+    
+    func fetchNotes(completion: @escaping([NoteItem]?, Error?) -> Void) {
+        
+        guard let uid = NetworkManager.shared.getUID() else { return }
+        
+        database.collection("notes").whereField("user", isEqualTo: uid).limit(to: 10).getDocuments { snapshot, error in
+            var notes: [NoteItem] = []
+            
+            if let error = error {
+                completion(nil, error)
+                print(error.localizedDescription)
+                return
+            }
+            
+            guard let snapshot = snapshot else { return }
+            
+            for doc in snapshot.documents {
+                let data = doc.data()
+                let id = doc.documentID
+                let title = data["title"] as? String ?? ""
+                let note = data["note"] as? String ?? ""
+                let user = data["user"] as? String ?? ""
+                let date = (data["date"] as? Timestamp)?.dateValue() ?? Date()
+                
+                let newNote = NoteItem(id: id, title: title, note: note, user: user, date: date)
+                notes.append(newNote)
+            }
+            lastDoc = snapshot.documents.last
+            completion(notes, nil)
         }
     }
     

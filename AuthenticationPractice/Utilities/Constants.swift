@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct StoryBoardConstants {
 //    static let dashBoardVCIdentifier = "DashboardVC"
@@ -16,6 +17,7 @@ struct StoryBoardConstants {
     static let menuVCIdentifier = "SideMenuVC"
     static let settingsVCIdentifier = "SettingsVC"
     static let accountVCIdentifier = "AccountVC"
+    
 }
 
 struct APIConstants {
@@ -39,6 +41,7 @@ struct imageConstants {
     static let delete = "trash"
     static let x = "clear.fill"
     static let menu = "line.horizontal.3"
+    static  let defaultProfile = UIImage(systemName: "person")!
 }
 
 struct colorConstants {
@@ -46,17 +49,20 @@ struct colorConstants {
 }
 
 struct menuItemConstants {
-    static let home = "HOME"
-    static let settings = "SETTINGS"
-    static let account = "ACCOUNT"
-    static let logout = "LOGOUT"
+    static let home = "Home"
+    static let settings = "Settings"
+    static let account = "Account"
+    static let logout = "Logout"
     
-    static let menuItemArray = ["HOME", "SETTINGS", "ACCOUNT", "LOGOUT"]
+    static let menuItemArray = ["Home", "Settings", "Account", "Logout"]
     static let menuImageArray = [imageConstants.home,
                                  imageConstants.settings,
                                  imageConstants.account,
                                  imageConstants.logout]
 }
 
+enum NoteError: Error {
+    
+}
 
 
