@@ -14,18 +14,16 @@ class AccountViewController: UIViewController, UIImagePickerControllerDelegate &
     @IBOutlet var profileImage: UIImageView!
     @IBOutlet var uploadButton: UIButton!
     @IBOutlet weak var removeButton: UIButton!
-    
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var uidLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigation()
         configureScreen()
         getImage()
-        
-        profileImage.layer.cornerRadius = 20
-//        profileImage.clipsToBounds = true
-        profileImage.layer.borderColor = UIColor.white.cgColor
-        profileImage.layer.borderWidth = 5
+        configureUI()
+        getData()
         // Do any additional setup after loading the view.
     }
     
@@ -41,6 +39,28 @@ class AccountViewController: UIViewController, UIImagePickerControllerDelegate &
         self.profileImage.image = imageConstants.defaultProfile
         UserDefaults.standard.set("", forKey: "url")
         removeButton.isHidden = true
+    }
+    
+    func configureUI() {
+        profileImage.layer.cornerRadius = 20
+        profileImage.layer.borderColor = UIColor.white.cgColor
+        profileImage.layer.borderWidth = 5
+    }
+    
+    func getData() {
+        NetworkManager.shared.getUser { result in
+            switch result {
+                
+            case .success(let data):
+                let username = data["username"] as? String ?? ""
+                let uid = data["uid"] as? String ?? ""
+                
+                self.usernameLabel.text = "Username : \(username)"
+                self.uidLabel.text = "UID : \(uid)"
+            case .failure(let error):
+                self.showAlert(title: "Failed to load user data", message: error.localizedDescription)
+            }
+        }
     }
     
     func getImage() {

@@ -84,8 +84,7 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
         searchController.searchBar.placeholder = "Search Note"
     }
     
-    func updateUI(notes: [NoteItem]) {
-        self.noteList = notes
+    func updateCollectionView(notes: [NoteItem]) {
         if notes.count < 10 {
             self.hasMoreNotes = false
         }
@@ -99,11 +98,11 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
     
     func getData() {
         
-        NetworkManager.shared.resultType { result in
+        NetworkManager.shared.fetchNotes(archivedNotes: false) { result in
             switch result {
                 
             case .success(let notes):
-                self.updateUI(notes: notes)
+                self.updateCollectionView(notes: notes)
 
             case .failure(let error):
                 self.showAlert(title: "Error while Fetching Notes", message: error.localizedDescription)
@@ -229,7 +228,7 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let addView = storyboard!.instantiateViewController(withIdentifier: "AddVC") as! AddItemViewController
+        let addView = storyboard!.instantiateViewController(withIdentifier: StoryBoardConstants.addNoteVCIdentifier) as! AddItemViewController
         
         addView.isNew = false
         
@@ -239,6 +238,7 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
     }
 }
 
+//MARK: DeleteCellDelegate
 extension HomeViewController: DeleteCellDelegate {
     
     func deleteNote(note: NoteItem) {
@@ -253,6 +253,7 @@ extension HomeViewController: DeleteCellDelegate {
     }
 }
 
+//MARK: UISearchResultsUpdating, UISearchBarDelegate
 extension HomeViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         let searchText = searchController.searchBar.text!
@@ -276,6 +277,7 @@ extension HomeViewController: UISearchResultsUpdating, UISearchBarDelegate {
     }
 }
 
+//MARK: UIScrollViewDelegate
 extension HomeViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {

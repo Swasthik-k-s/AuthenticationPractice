@@ -22,12 +22,24 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureScreen()
         navigationItem.title = isNew ? "ADD NOTE" : "EDIT NOTE"
 
         if !isNew {
+            configureUI()
             loadData()
         }
         // Do any additional setup after loading the view.
+    }
+    
+    func configureUI() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: note!.isArchive ?  imageConstants.unarchive : imageConstants.archive, style: .plain, target: self, action: #selector(archiveNote))
+    }
+    
+    @objc func archiveNote() {
+        note!.isArchive = !note!.isArchive
+        DatabaseManager.shared.updateNote(note: note!)
+        navigationController?.popViewController(animated: true)
     }
     
     func loadData() {
@@ -44,6 +56,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
             let newNote = NoteItem(title: titleField.text!,
                                    note: noteField.text!,
                                    user: NetworkManager.shared.getUID()!,
+                                   isArchive: false,
                                    date: Date())
             
             let realmNote = RealmNote()
@@ -52,14 +65,14 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
             realmNote.user = NetworkManager.shared.getUID()!
             realmNote.date = Date()
             
-            DatabaseManager.shared.addNote(note: newNote.dictionary, realmNote: realmNote)
+            DatabaseManager.shared.addNote(note: newNote.dictionary)
             
             navigationController?.popViewController(animated: true)
         } else {
             note?.title = titleField.text!
             note?.note = noteField.text!
             
-            DatabaseManager.shared.updateNote(note: note!, title: titleField.text!, description: noteField.text!)
+            DatabaseManager.shared.updateNote(note: note!)
             
             navigationController?.popViewController(animated: true)
         }

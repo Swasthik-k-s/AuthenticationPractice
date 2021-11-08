@@ -14,7 +14,9 @@ struct StoryBoardConstants {
     static let loginVCIdentifier = "LoginNavigationVC"
     static let dashboardVCIdentifier = "DashboardVC"
     static let homeVCIdentifier = "HomeVC"
+    static let addNoteVCIdentifier = "AddVC"
     static let menuVCIdentifier = "SideMenuVC"
+    static let archiveVCIdentifier = "ArchiveVC"
     static let settingsVCIdentifier = "SettingsVC"
     static let accountVCIdentifier = "AccountVC"
     
@@ -34,6 +36,7 @@ struct imageConstants {
     static let gridView = "rectangle.grid.2x2.fill"
     static let lineView = "rectangle.grid.1x2.fill"
     static let home = "house.fill"
+    static let archived = "folder.fill.badge.plus"
     static let settings = "gearshape.fill"
     static let account = "person.crop.square.fill"
     static let logout = "arrow.left.to.line"
@@ -42,6 +45,8 @@ struct imageConstants {
     static let x = "clear.fill"
     static let menu = "line.horizontal.3"
     static  let defaultProfile = UIImage(systemName: "person")!
+    static let archive = UIImage(systemName: "folder.fill.badge.plus")
+    static let unarchive = UIImage(systemName: "folder.fill.badge.minus")
 }
 
 struct colorConstants {
@@ -50,12 +55,14 @@ struct colorConstants {
 
 struct menuItemConstants {
     static let home = "Home"
+    static let archive = "Archive"
     static let settings = "Settings"
     static let account = "Account"
     static let logout = "Logout"
     
-    static let menuItemArray = ["Home", "Settings", "Account", "Logout"]
+    static let menuItemArray = ["Home", "Archive", "Settings", "Account", "Logout"]
     static let menuImageArray = [imageConstants.home,
+                                 imageConstants.archived,
                                  imageConstants.settings,
                                  imageConstants.account,
                                  imageConstants.logout]

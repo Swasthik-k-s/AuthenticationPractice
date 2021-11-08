@@ -11,12 +11,12 @@ import UIKit
 struct DatabaseManager {
     static let shared = DatabaseManager()
     
-    func addNote(note: [String: Any], realmNote: RealmNote) {
+    func addNote(note: [String: Any]) {
         NetworkManager.shared.addNote(note: note)
 //        PersistentManager.shared.addNote(note: realmNote)
     }
     
-    func updateNote(note: NoteItem, title: String, description: String) {
+    func updateNote(note: NoteItem) {
         NetworkManager.shared.updateNote(note: note)
 //        PersistentManager.shared.updateNote(note: realmNote, title: title, description: description)
     }

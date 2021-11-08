@@ -33,14 +33,16 @@ struct NetworkManager {
     }
     
     func addNote(note: [String: Any]) {
-        database.collection("notes").addDocument(data: note)
+        guard let uid = NetworkManager.shared.getUID() else { return }
+        database.collection("users").document(uid).collection("notes").addDocument(data: note)
+//        database.collection("notes").addDocument(data: note)
     }
     
     func getNote(completion: @escaping([NoteItem]) -> Void) {
         //        let db = Firestore.firestore()
         guard let uid = NetworkManager.shared.getUID() else { return }
         
-        database.collection("notes").whereField("user", isEqualTo: uid).getDocuments { snapshot, error in
+        database.collection("users").document(uid).collection("notes").order(by: "date").getDocuments { snapshot, error in
             var notes: [NoteItem] = []
             
             if let error = error {
@@ -56,9 +58,10 @@ struct NetworkManager {
                 let title = data["title"] as? String ?? ""
                 let note = data["note"] as? String ?? ""
                 let user = data["user"] as? String ?? ""
+                let isArchive = data["isArchive"] as? Bool ?? false
                 let date = (data["date"] as? Timestamp)?.dateValue() ?? Date()
                 
-                let newNote = NoteItem(id: id, title: title, note: note, user: user, date: date)
+                let newNote = NoteItem(id: id, title: title, note: note, user: user, isArchive: isArchive, date: date)
                 notes.append(newNote)
             }
             completion(notes)
@@ -73,7 +76,7 @@ struct NetworkManager {
         guard let uid = NetworkManager.shared.getUID() else { return }
         guard let lastDocument = lastDoc else { return }
         
-        database.collection("notes").whereField("user", isEqualTo: uid).start(afterDocument: lastDocument).limit(to: 10).getDocuments { snapshot, error in
+        database.collection("users").document(uid).collection("notes").order(by: "date").start(afterDocument: lastDocument).limit(to: 10).getDocuments { snapshot, error in
             var notes: [NoteItem] = []
             
             
@@ -90,9 +93,10 @@ struct NetworkManager {
                 let title = data["title"] as? String ?? ""
                 let note = data["note"] as? String ?? ""
                 let user = data["user"] as? String ?? ""
+                let isArchive = data["isArchive"] as? Bool ?? false
                 let date = (data["date"] as? Timestamp)?.dateValue() ?? Date()
                 
-                let newNote = NoteItem(id: id, title: title, note: note, user: user, date: date)
+                let newNote = NoteItem(id: id, title: title, note: note, user: user, isArchive: isArchive, date: date)
                 notes.append(newNote)
             }
             lastDoc = snapshot.documents.last
@@ -103,11 +107,11 @@ struct NetworkManager {
         }
     }
     
-    func resultType(completion: @escaping(Result<[NoteItem], Error>) -> Void) {
+    func fetchNotes(archivedNotes: Bool, completion: @escaping(Result<[NoteItem], Error>) -> Void) {
         
         guard let uid = NetworkManager.shared.getUID() else { return }
         
-        database.collection("notes").whereField("user", isEqualTo: uid).limit(to: 10).getDocuments { snapshot, error in
+        database.collection("users").document(uid).collection("notes").whereField("isArchive", isEqualTo: archivedNotes).limit(to: 10).getDocuments { snapshot, error in
             var notes: [NoteItem] = []
             
             if let error = error {
@@ -124,9 +128,10 @@ struct NetworkManager {
                 let title = data["title"] as? String ?? ""
                 let note = data["note"] as? String ?? ""
                 let user = data["user"] as? String ?? ""
+                let isArchive = data["isArchive"] as? Bool ?? false
                 let date = (data["date"] as? Timestamp)?.dateValue() ?? Date()
                 
-                let newNote = NoteItem(id: id, title: title, note: note, user: user, date: date)
+                let newNote = NoteItem(id: id, title: title, note: note, user: user, isArchive: isArchive, date: date)
                 notes.append(newNote)
             }
             lastDoc = snapshot.documents.last
@@ -135,40 +140,42 @@ struct NetworkManager {
         }
     }
     
-    func fetchNotes(completion: @escaping([NoteItem]?, Error?) -> Void) {
-        
-        guard let uid = NetworkManager.shared.getUID() else { return }
-        
-        database.collection("notes").whereField("user", isEqualTo: uid).limit(to: 10).getDocuments { snapshot, error in
-            var notes: [NoteItem] = []
-            
-            if let error = error {
-                completion(nil, error)
-                print(error.localizedDescription)
-                return
-            }
-            
-            guard let snapshot = snapshot else { return }
-            
-            for doc in snapshot.documents {
-                let data = doc.data()
-                let id = doc.documentID
-                let title = data["title"] as? String ?? ""
-                let note = data["note"] as? String ?? ""
-                let user = data["user"] as? String ?? ""
-                let date = (data["date"] as? Timestamp)?.dateValue() ?? Date()
-                
-                let newNote = NoteItem(id: id, title: title, note: note, user: user, date: date)
-                notes.append(newNote)
-            }
-            lastDoc = snapshot.documents.last
-            completion(notes, nil)
-        }
-    }
+//    func fetchNotes(completion: @escaping([NoteItem]?, Error?) -> Void) {
+//
+//        guard let uid = NetworkManager.shared.getUID() else { return }
+//
+//        database.collection("users").document(uid).collection("notes").order(by: "date").limit(to: 10).getDocuments { snapshot, error in
+//            var notes: [NoteItem] = []
+//
+//            if let error = error {
+//                completion(nil, error)
+//                print(error.localizedDescription)
+//                return
+//            }
+//
+//            guard let snapshot = snapshot else { return }
+//
+//            for doc in snapshot.documents {
+//                let data = doc.data()
+//                let id = doc.documentID
+//                let title = data["title"] as? String ?? ""
+//                let note = data["note"] as? String ?? ""
+//                let user = data["user"] as? String ?? ""
+//                let isArchive = data["isArchive"] as? Bool ?? false
+//                let date = (data["date"] as? Timestamp)?.dateValue() ?? Date()
+//
+//                let newNote = NoteItem(id: id, title: title, note: note, user: user, isArchive: isArchive, date: date)
+//                notes.append(newNote)
+//            }
+//            lastDoc = snapshot.documents.last
+//            completion(notes, nil)
+//        }
+//    }
     
     func updateNote(note: NoteItem) {
+        guard let uid = NetworkManager.shared.getUID() else { return }
         
-        database.collection("notes").document(note.id!).updateData(["title": note.title, "note": note.note]) { error in
+        database.collection("users").document(uid).collection("notes").document(note.id!).updateData(note.dictionary) { error in
             if let error = error {
                 print(error.localizedDescription)
             }
@@ -176,7 +183,9 @@ struct NetworkManager {
     }
     
     func deleteNote(note: NoteItem) {
-        database.collection("notes").document(note.id!).delete { error in
+        guard let uid = NetworkManager.shared.getUID() else { return }
+        
+        database.collection("users").document(uid).collection("notes").document(note.id!).delete { error in
             if let error = error {
                 print(error.localizedDescription)
             }
@@ -189,8 +198,21 @@ struct NetworkManager {
         database.collection(collectionName).document(getUID()!).setData(data)
     }
     
-    func getUser() {
-        
+    func getUser(completion: @escaping(Result<[String: Any], Error>) -> Void) {
+        guard let uid = NetworkManager.shared.getUID() else { return }
+        database.collection("users").document(uid).getDocument { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                print(error.localizedDescription)
+                return
+            }
+            
+            guard let snapshot = snapshot else { return }
+            
+            let data = snapshot.data()
+            print(data!)
+            completion(.success(data!))
+        }
     }
     
     func downloadImage(fromURL urlString: String, completion: @escaping(UIImage?) -> Void) {

@@ -67,7 +67,7 @@ class ViewController: UIViewController {
             }
             
             let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
-        
+            
             Auth.auth().signIn(with: credential) { user, error in
                 if let error = error {
                     self.showAlert(title: "Login Error", message: error.localizedDescription)

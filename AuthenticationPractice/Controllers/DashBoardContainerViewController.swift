@@ -14,9 +14,12 @@ class DashBoardContainerViewController: UIViewController {
     
     var menuController: SideMenuController!
     var centerController: UIViewController!
+    var archiveController: UIViewController!
     var settingsController: UIViewController!
     var accountController: UIViewController!
     var homeController: UIViewController!
+    var archive: ArchiveViewController!
+    var home: HomeViewController!
     
     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
 //    var settingsController = SettingsViewController()
@@ -51,35 +54,43 @@ class DashBoardContainerViewController: UIViewController {
     }
     
     func addChildControllers() {
+        archive = storyBoard.instantiateViewController(withIdentifier: StoryBoardConstants.archiveVCIdentifier) as! ArchiveViewController
+        
         let settings = storyBoard.instantiateViewController(withIdentifier: StoryBoardConstants.settingsVCIdentifier) as! SettingsViewController
         
         let account = storyBoard.instantiateViewController(withIdentifier: StoryBoardConstants.accountVCIdentifier) as! AccountViewController
         
+        archive.delegate = self
         settings.delegate = self
         account.delegate = self
         
+        archiveController = UINavigationController(rootViewController: archive)
         settingsController = UINavigationController(rootViewController: settings)
         accountController = UINavigationController(rootViewController: account)
         
+        addChild(archiveController)
         addChild(settingsController)
         addChild(accountController)
         
+        view.addSubview(archiveController.view)
         view.addSubview(settingsController.view)
         view.addSubview(accountController.view)
         
 //        settingsController.view.frame = view.bounds
 //        accountController.view.frame = view.bounds
         
+        archiveController.didMove(toParent: self)
         settingsController.didMove(toParent: self)
         accountController.didMove(toParent: self)
         
+        archiveController.view.isHidden = true
         settingsController.view.isHidden = true
         accountController.view.isHidden = true
     }
     
     func configureHome() {
         
-        let home = storyboard!.instantiateViewController(withIdentifier: StoryBoardConstants.homeVCIdentifier) as! HomeViewController
+        home = storyboard!.instantiateViewController(withIdentifier: StoryBoardConstants.homeVCIdentifier) as! HomeViewController
         
         home.delegate = self
         homeController = UINavigationController(rootViewController: home)
@@ -131,17 +142,29 @@ extension DashBoardContainerViewController: MenuDelegate {
     func didSelectMenu(menuItem: String) {
         switch menuItem {
         case menuItemConstants.home:
+            home.getData()
             centerController = homeController
+            archiveController.view.isHidden = true
+            settingsController.view.isHidden = true
+            accountController.view.isHidden = true
+            break
+        case menuItemConstants.archive:
+//            archive.loadView()
+            archive.getData()
+            centerController = archiveController
+            archiveController.view.isHidden = false
             settingsController.view.isHidden = true
             accountController.view.isHidden = true
             break
         case menuItemConstants.settings:
             centerController = settingsController
+            archiveController.view.isHidden = true
             settingsController.view.isHidden = false
             accountController.view.isHidden = true
             break
         case menuItemConstants.account:
             centerController = accountController
+            archiveController.view.isHidden = true
             settingsController.view.isHidden = true
             accountController.view.isHidden = false
             break
