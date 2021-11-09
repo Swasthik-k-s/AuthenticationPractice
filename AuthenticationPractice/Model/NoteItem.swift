@@ -14,6 +14,7 @@ struct NoteItem: Codable {
     var note: String
     var user: String
     var isArchive: Bool
+    var reminder: Date?
     var date: Date
     
     var dictionary: [String: Any] {
@@ -22,7 +23,8 @@ struct NoteItem: Codable {
             "note": note,
             "user": user,
             "isArchive": isArchive,
-            "date": date
+            "date": date,
+            "reminder": reminder
         ]
     }
 }

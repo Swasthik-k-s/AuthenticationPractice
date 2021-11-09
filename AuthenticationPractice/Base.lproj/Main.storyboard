@@ -352,6 +352,35 @@
             </objects>
             <point key="canvasLocation" x="5676.811594202899" y="734.59821428571422"/>
         </scene>
+        <!--Date Time Picker View Controller-->
+        <scene sceneID="MAx-2T-mur">
+            <objects>
+                <viewController storyboardIdentifier="dateTimePickerVC" id="8Ip-5h-Yau" customClass="DateTimePickerViewController" customModule="AuthenticationPractice" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pbd-ap-bb8">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="fzA-bW-2gK">
+                                <rect key="frame" x="10" y="340" width="394" height="216"/>
+                            </datePicker>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="dUU-4i-k4F"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dUU-4i-k4F" firstAttribute="trailing" secondItem="fzA-bW-2gK" secondAttribute="trailing" constant="10" id="0SL-hv-21s"/>
+                            <constraint firstItem="fzA-bW-2gK" firstAttribute="leading" secondItem="pbd-ap-bb8" secondAttribute="leading" constant="10" id="EhA-nI-tS3"/>
+                            <constraint firstItem="fzA-bW-2gK" firstAttribute="centerY" secondItem="pbd-ap-bb8" secondAttribute="centerY" id="dUH-0i-fYE"/>
+                            <constraint firstItem="fzA-bW-2gK" firstAttribute="centerX" secondItem="pbd-ap-bb8" secondAttribute="centerX" id="phc-m4-8mO"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="datePicker" destination="fzA-bW-2gK" id="aIx-sm-DSh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qtM-Ah-AfJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6383" y="735"/>
+        </scene>
         <!--Side Menu Controller-->
         <scene sceneID="34I-AV-XmG">
             <objects>
@@ -524,6 +553,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jB3-QA-TAb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6384" y="80"/>
+        </scene>
+        <!--Reminder View Controller-->
+        <scene sceneID="j2a-6O-c86">
+            <objects>
+                <viewController storyboardIdentifier="ReminderVC" id="MKR-RB-Urh" customClass="ReminderViewController" customModule="AuthenticationPractice" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PdM-NJ-IK2">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="slZ-UZ-2dM"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Poz-ZU-Giw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7112" y="80"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">

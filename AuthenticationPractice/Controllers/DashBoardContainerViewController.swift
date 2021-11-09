@@ -15,11 +15,16 @@ class DashBoardContainerViewController: UIViewController {
     var menuController: SideMenuController!
     var centerController: UIViewController!
     var archiveController: UIViewController!
+    var reminderController: UIViewController!
     var settingsController: UIViewController!
     var accountController: UIViewController!
     var homeController: UIViewController!
+    
     var archive: ArchiveViewController!
+    var settings: SettingsViewController!
+    var account: AccountViewController!
     var home: HomeViewController!
+    var reminder: ReminderViewController!
     
     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
 //    var settingsController = SettingsViewController()
@@ -31,7 +36,7 @@ class DashBoardContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        initializeScreen()
         configureHome()
         addChildControllers()
         
@@ -39,7 +44,6 @@ class DashBoardContainerViewController: UIViewController {
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        
         return .lightContent
     }
     
@@ -53,38 +57,45 @@ class DashBoardContainerViewController: UIViewController {
         }
     }
     
-    func addChildControllers() {
-        archive = storyBoard.instantiateViewController(withIdentifier: StoryBoardConstants.archiveVCIdentifier) as! ArchiveViewController
+    func initializeScreen() {
+        archive = storyBoard.instantiateViewController(withIdentifier: StoryBoardConstants.archiveVCIdentifier) as? ArchiveViewController
         
-        let settings = storyBoard.instantiateViewController(withIdentifier: StoryBoardConstants.settingsVCIdentifier) as! SettingsViewController
+        settings = storyBoard.instantiateViewController(withIdentifier: StoryBoardConstants.settingsVCIdentifier) as? SettingsViewController
         
-        let account = storyBoard.instantiateViewController(withIdentifier: StoryBoardConstants.accountVCIdentifier) as! AccountViewController
+        account = storyBoard.instantiateViewController(withIdentifier: StoryBoardConstants.accountVCIdentifier) as? AccountViewController
         
-        archive.delegate = self
-        settings.delegate = self
-        account.delegate = self
+        reminder = storyBoard.instantiateViewController(withIdentifier: StoryBoardConstants.reminderVCIdentifier) as? ReminderViewController
         
         archiveController = UINavigationController(rootViewController: archive)
+        reminderController = UINavigationController(rootViewController: reminder)
         settingsController = UINavigationController(rootViewController: settings)
         accountController = UINavigationController(rootViewController: account)
+    }
+    
+    func addChildControllers() {
         
+        archive.delegate = self
         addChild(archiveController)
-        addChild(settingsController)
-        addChild(accountController)
-        
         view.addSubview(archiveController.view)
-        view.addSubview(settingsController.view)
-        view.addSubview(accountController.view)
-        
-//        settingsController.view.frame = view.bounds
-//        accountController.view.frame = view.bounds
-        
         archiveController.didMove(toParent: self)
-        settingsController.didMove(toParent: self)
-        accountController.didMove(toParent: self)
-        
         archiveController.view.isHidden = true
+        
+        reminder.delegate = self
+        addChild(reminderController)
+        view.addSubview(reminderController.view)
+        reminderController.didMove(toParent: self)
+        reminderController.view.isHidden = true
+        
+        settings.delegate = self
+        addChild(settingsController)
+        view.addSubview(settingsController.view)
+        settingsController.didMove(toParent: self)
         settingsController.view.isHidden = true
+        
+        account.delegate = self
+        addChild(accountController)
+        view.addSubview(accountController.view)
+        accountController.didMove(toParent: self)
         accountController.view.isHidden = true
     }
     
@@ -145,6 +156,7 @@ extension DashBoardContainerViewController: MenuDelegate {
             home.getData()
             centerController = homeController
             archiveController.view.isHidden = true
+            reminderController.view.isHidden = true
             settingsController.view.isHidden = true
             accountController.view.isHidden = true
             break
@@ -153,18 +165,28 @@ extension DashBoardContainerViewController: MenuDelegate {
             archive.getData()
             centerController = archiveController
             archiveController.view.isHidden = false
+            reminderController.view.isHidden = true
+            settingsController.view.isHidden = true
+            accountController.view.isHidden = true
+            break
+        case menuItemConstants.reminder:
+            centerController = reminderController
+            archiveController.view.isHidden = true
+            reminderController.view.isHidden = false
             settingsController.view.isHidden = true
             accountController.view.isHidden = true
             break
         case menuItemConstants.settings:
             centerController = settingsController
             archiveController.view.isHidden = true
+            reminderController.view.isHidden = true
             settingsController.view.isHidden = false
             accountController.view.isHidden = true
             break
         case menuItemConstants.account:
             centerController = accountController
             archiveController.view.isHidden = true
+            reminderController.view.isHidden = true
             settingsController.view.isHidden = true
             accountController.view.isHidden = false
             break

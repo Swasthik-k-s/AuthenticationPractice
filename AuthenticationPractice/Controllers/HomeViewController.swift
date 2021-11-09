@@ -296,7 +296,7 @@ extension HomeViewController: UIScrollViewDelegate {
                 return
             }
 
-            NetworkManager.shared.fetchMoreNotes { notes in
+            NetworkManager.shared.fetchMoreNotes(archivedNotes: false) { notes in
                 if notes.count < 10 {
                     self.hasMoreNotes = false
                 }
@@ -306,19 +306,6 @@ extension HomeViewController: UIScrollViewDelegate {
             }
         }
     }
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let position = scrollView.contentOffset.y
-//
-//        print("Position \(position)")
-//        print("number \(noteCollectionView.contentSize.height - scrollView.frame.size.height - 100)")
-//        print("collection view height \(noteCollectionView.contentSize.height)")
-//
-//        if position > noteCollectionView.contentSize.height - scrollView.frame.size.height - 100 {
-            
-
-//        }
-//
-//    }
 }
 
 
