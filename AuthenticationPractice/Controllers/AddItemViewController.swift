@@ -98,6 +98,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     func loadData() {
         titleField.text = note?.title
         noteField.text = note?.note
+        remindTime = note?.reminder
         saveButton.setTitle("UPDATE", for: .normal)
     }
     

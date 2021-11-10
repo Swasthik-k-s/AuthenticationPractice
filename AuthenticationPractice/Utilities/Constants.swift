@@ -53,6 +53,8 @@ struct imageConstants {
 }
 
 struct colorConstants {
+    static let black1 = UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0)
+    static let black2 = UIColor(red: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1.0)
     
 }
 

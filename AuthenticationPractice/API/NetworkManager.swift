@@ -147,7 +147,7 @@ struct NetworkManager {
 //        let nilValue: Date?
         let nilValue: Date? = nil
         
-        database.collection("users").document(uid).collection("notes").whereField("reminder", isNotEqualTo:nilValue).limit(to: 10).getDocuments { snapshot, error in
+        database.collection("users").document(uid).collection("notes").whereField("reminder", isNotEqualTo: nilValue).limit(to: 10).getDocuments { snapshot, error in
             var notes: [NoteItem] = []
             
             if let error = error {
@@ -165,10 +165,10 @@ struct NetworkManager {
                 let note = data["note"] as? String ?? ""
                 let user = data["user"] as? String ?? ""
                 let isArchive = data["isArchive"] as? Bool ?? false
+                let reminder = (data["reminder"] as? Timestamp)?.dateValue() ?? Date()
                 let date = (data["date"] as? Timestamp)?.dateValue() ?? Date()
                 
-                
-                let newNote = NoteItem(id: id, title: title, note: note, user: user, isArchive: isArchive, date: date)
+                let newNote = NoteItem(id: id, title: title, note: note, user: user, isArchive: isArchive, reminder: reminder, date: date)
                 notes.append(newNote)
             }
             lastDoc = snapshot.documents.last

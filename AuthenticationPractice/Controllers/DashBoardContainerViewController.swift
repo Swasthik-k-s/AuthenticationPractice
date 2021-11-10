@@ -170,6 +170,7 @@ extension DashBoardContainerViewController: MenuDelegate {
             accountController.view.isHidden = true
             break
         case menuItemConstants.reminder:
+            reminder.fetchRemindNotes()
             centerController = reminderController
             archiveController.view.isHidden = true
             reminderController.view.isHidden = false

@@ -20,22 +20,6 @@ class NoteCell: UICollectionViewCell {
     
     @IBAction func deletePressed(_ sender: Any) {
         delegate?.deleteNote(note: currentNote!)
-        
-//        let alert = UIAlertController(title: "Delete \(currentNote?.title)", message: "Are you Sure", preferredStyle: .alert)
-//
-//        let button = UIAlertAction(title: "Delete", style: .default) { (buttonclick) in
-//
-//        }
-//
-//        let cancel = UIAlertAction(title: "Cancel", style: .default) { (cancelclick) in
-//        }
-//
-//        alert.addAction(cancel)
-//        alert.addAction(button)
-//
-//        HomeViewController().present(alert, animated: true, completion: nil)
-        
-        
     }
 }
 
