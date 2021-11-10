@@ -10,6 +10,7 @@ import UIKit
 class ReminderCell: UICollectionViewCell {
     
     var currentNote: NoteItem?
+    var delegate: RemoveReminderDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,6 +51,7 @@ class ReminderCell: UICollectionViewCell {
         let delete = UIButton()
         delete.setImage(UIImage(systemName: imageConstants.delete), for: .normal)
         delete.tintColor = .red
+        delete.addTarget(self, action: #selector(removeReminder), for: .touchUpInside)
         return delete
     }()
     
@@ -67,6 +69,10 @@ class ReminderCell: UICollectionViewCell {
         return stack
     }()
     
+    @objc func removeReminder() {
+        delegate?.removeReminder(note: currentNote!)
+    }
+    
     func configureCell() {
         layer.borderColor = UIColor.yellow.cgColor
         layer.borderWidth = 2
@@ -75,12 +81,10 @@ class ReminderCell: UICollectionViewCell {
         stackView1.addArrangedSubview(noteLabel)
         stackView2.addArrangedSubview(remindDateLabel)
         stackView2.addArrangedSubview(remindTimeLabel)
-//        addSubview(titleLabel)
-//        addSubview(noteLabel)
+
         addSubview(stackView1)
         addSubview(stackView2)
-//        addSubview(remindDateLabel)
-//        addSubview(remindTimeLabel)
+
         addSubview(deleteButton)
         
         stackView1.translatesAutoresizingMaskIntoConstraints = false
@@ -96,30 +100,12 @@ class ReminderCell: UICollectionViewCell {
             stackView1.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             stackView1.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10),
             stackView1.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -200),
-//            stackView1.rightAnchor.constraint(equalTo: stackView2.leftAnchor, constant: -10),
-            
-            
-//            titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-//            titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10),
-//            titleLabel.rightAnchor.constraint(equalTo: stackView2.leftAnchor, constant: -10),
-//
-//            noteLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-//            noteLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10),
-//            noteLabel.rightAnchor.constraint(equalTo: stackView2.leftAnchor, constant: -10),
-            
-//            remindDateLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
-//            remindDateLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-//
-//            remindTimeLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
-//            remindTimeLabel.topAnchor.constraint(equalTo: remindDateLabel.bottomAnchor, constant: 10),
+
             stackView2.rightAnchor.constraint(equalTo: deleteButton.leftAnchor,constant: -50),
             stackView2.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             
                         deleteButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
             deleteButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            
-            
-            
         ])
     }
     

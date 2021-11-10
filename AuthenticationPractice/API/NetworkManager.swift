@@ -147,7 +147,7 @@ struct NetworkManager {
 //        let nilValue: Date?
         let nilValue: Date? = nil
         
-        database.collection("users").document(uid).collection("notes").whereField("reminder", isNotEqualTo: nilValue).limit(to: 10).getDocuments { snapshot, error in
+        database.collection("users").document(uid).collection("notes").whereField("reminder", isNotEqualTo: nilValue).getDocuments { snapshot, error in
             var notes: [NoteItem] = []
             
             if let error = error {
@@ -214,9 +214,11 @@ struct NetworkManager {
             
             guard let snapshot = snapshot else { return }
             
-            let data = snapshot.data()
-            print(data!)
-            completion(.success(data!))
+            var data = snapshot.data()
+            if data == nil {
+                data = ["uid": ""]
+            }
+                completion(.success(data!))
         }
     }
     

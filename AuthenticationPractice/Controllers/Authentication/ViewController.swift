@@ -43,11 +43,23 @@ class ViewController: UIViewController {
                     self.showAlert(title: "Login Error", message: error.localizedDescription)
                     return
                 } else {
-                    
-//                    let content: [String: Any] = ["username": "fb",
-//                                                  "uid": Auth.auth().currentUser?.uid ?? ""]
-//                    NetworkManager.shared.writeDB(collectionName: "users",data: content)
-                    self.navigateHomeScreen()
+                    NetworkManager.shared.getUser { result in
+                        switch result {
+                            
+                        case .success(let data):
+                            let user = data["uid"] as? String ?? ""
+                            if user == "" {
+                                let uid = NetworkManager.shared.getUID()
+                                let content: [String: Any] = ["username": "Google User",
+                                                              "uid": uid!]
+                                NetworkManager.shared.addUser(collectionName: "users",data: content)
+                            }
+                            self.navigateHomeScreen()
+                        case .failure(let error):
+                            self.showAlert(title: "Failed to Login with Google", message: error.localizedDescription)
+                            
+                        }
+                    }
                 }
             }
         }
@@ -73,10 +85,23 @@ class ViewController: UIViewController {
                     self.showAlert(title: "Login Error", message: error.localizedDescription)
                     return
                 } else {
-                    
-//                    let content: [String: Any] = ["username": "fb", "uid": Auth.auth().currentUser?.uid ?? ""]
-//                    NetworkManager.shared.addUser(collectionName: "users",data: content)
-                    self.navigateHomeScreen()
+                    NetworkManager.shared.getUser { result in
+                        switch result {
+                            
+                        case .success(let data):
+                            let user = data["uid"] as? String ?? ""
+                            if user == "" {
+                                let uid = NetworkManager.shared.getUID()
+                                let content: [String: Any] = ["username": "Facebook User",
+                                                              "uid": uid!]
+                                NetworkManager.shared.addUser(collectionName: "users",data: content)
+                            }
+                            self.navigateHomeScreen()
+                        case .failure(let error):
+                            self.showAlert(title: "Failed to Login with Facebook", message: error.localizedDescription)
+                            
+                        }
+                    }
                 }
             }
         }

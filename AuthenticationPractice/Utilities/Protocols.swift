@@ -17,3 +17,7 @@ protocol MenuDelegate {
 protocol DeleteCellDelegate {
     func deleteNote(note: NoteItem)
 }
+
+protocol RemoveReminderDelegate {
+    func removeReminder(note: NoteItem)
+}

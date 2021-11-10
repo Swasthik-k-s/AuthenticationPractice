@@ -81,13 +81,13 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     
     func setNotification(remindDate: Date) {
         let content = UNMutableNotificationContent()
-        content.title = "Note Remainder for \(note!.title)"
+        content.title = "Note Remainder for \(titleField.text)"
         content.sound = .default
-        content.body = note!.note
+        content.body = noteField.text
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: remindDate), repeats: false)
         
-        let request = UNNotificationRequest(identifier: "id", content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: "notification", content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request) { error in
             if error != nil {
                 self.showAlert(title: "Failed", message: "Error")

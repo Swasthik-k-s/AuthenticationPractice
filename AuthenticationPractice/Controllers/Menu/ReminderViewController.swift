@@ -82,13 +82,15 @@ extension ReminderViewController: UICollectionViewDataSource {
         timeFormatter.dateFormat = "hh:mm a"
         
         let reminderdDate = note.reminder
-        print(reminderdDate)
         
         cell.titleLabel.text = note.title
         cell.noteLabel.text = note.note
         
         cell.remindDateLabel.text = dateFormatter.string(from: reminderdDate ?? Date())
         cell.remindTimeLabel.text = timeFormatter.string(from: reminderdDate ?? Date())
+        cell.currentNote = note
+        cell.delegate = self
+        
         return cell
     }
 }
@@ -109,4 +111,20 @@ extension ReminderViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+}
+
+extension ReminderViewController: RemoveReminderDelegate {
+    func removeReminder(note: NoteItem) {
+        
+        var updateNote = note
+        
+        let removeReminder = {
+            updateNote.reminder = nil
+            DatabaseManager.shared.updateNote(note: updateNote)
+            self.fetchRemindNotes()
+        }
+        
+        showAlertWithCancel(title: "Remove Reminder for " + note.title, message: "Are you Sure", buttonText: "Remove", buttonAction: removeReminder)
+    }
+    
 }
