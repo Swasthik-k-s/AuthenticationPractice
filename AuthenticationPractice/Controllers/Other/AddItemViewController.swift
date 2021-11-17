@@ -81,7 +81,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     
     func setNotification(remindDate: Date) {
         let content = UNMutableNotificationContent()
-        content.title = "Note Remainder for \(titleField.text)"
+        content.title = "Note Remainder for \(titleField.text!)"
         content.sound = .default
         content.body = noteField.text
         

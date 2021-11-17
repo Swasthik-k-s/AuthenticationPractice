@@ -15,7 +15,6 @@ struct ImageUploader {
         let storage = Storage.storage().reference()
         
         guard let imageData = image.pngData() else {
-            
             return
         }
         
@@ -36,5 +35,6 @@ struct ImageUploader {
             }
         }
     }
+    
 }
 

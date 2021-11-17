@@ -108,50 +108,6 @@ class HomeViewController: UIViewController,UICollectionViewDataSource, UICollect
                 self.showAlert(title: "Error while Fetching Notes", message: error.localizedDescription)
             }
         }
-        
-//        NetworkManager.shared.fetchNotes { notes, error in
-//            if let error = error {
-//                self.showAlert(title: "Error while Fetching Notes", message: error.localizedDescription)
-//                return
-//            }
-//            guard let notes = notes else {
-//                return
-//            }
-//
-//            if notes.count < 10 {
-//                self.hasMoreNotes = false
-//            }
-//
-//            self.noteList = notes
-//            DispatchQueue.main.async {
-//                self.handleEmptyState(array: self.noteList)
-//                self.noteCollectionView.reloadData()
-//            }
-//        }
-        
-//        NetworkManager.shared.fetchNotes { notes, error in
-//            print(notes!.count)
-//            if notes!.count < 10 {
-//                self.hasMoreNotes = false
-//            }
-//            self.noteList = notes
-//            DispatchQueue.main.async {
-//                self.handleEmptyState(array: self.noteList)
-//                self.noteCollectionView.reloadData()
-//            }
-            
-//        }
-        
-        //Fetch firebase notes
-        //        NetworkManager.shared.getNote { notes in
-        //            self.noteList = notes
-        //
-        //            //Show firebase content in collection view
-        //            DispatchQueue.main.async {
-        //                self.handleEmptyState(array: self.noteList)
-        //                self.noteCollectionView.reloadData()
-        //            }
-        //        }
     }
     
     func handleEmptyState(array: [NoteItem]) {
