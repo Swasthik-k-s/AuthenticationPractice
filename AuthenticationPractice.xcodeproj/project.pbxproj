@@ -10,6 +10,8 @@
 		87BCA8602070593CD0DF1DF4 /* Pods_AuthenticationPractice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF14835CE2CA975C913B4CBE /* Pods_AuthenticationPractice.framework */; };
 		FC3E2B7F27211B7000BF3E6F /* AuthenticationPracticeValidatation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3E2B7E27211B7000BF3E6F /* AuthenticationPracticeValidatation.swift */; };
 		FC3E2B8627214B1B00BF3E6F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3E2B8527214B1B00BF3E6F /* Constants.swift */; };
+		FC4F0BCB2739396C00D91CDA /* ArchiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4F0BCA2739396C00D91CDA /* ArchiveViewController.swift */; };
+		FC4F0BCD2739980D00D91CDA /* DateTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4F0BCC2739980D00D91CDA /* DateTimePickerViewController.swift */; };
 		FC64D008272077020067BDCA /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC64D007272077020067BDCA /* NetworkManager.swift */; };
 		FC679D1727252C1F00ECD0C8 /* DashBoardContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC679D1627252C1F00ECD0C8 /* DashBoardContainerViewController.swift */; };
 		FC679D19272544EE00ECD0C8 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC679D18272544EE00ECD0C8 /* Protocols.swift */; };
@@ -18,7 +20,11 @@
 		FC6D26C6272C614D009F0722 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6D26C5272C614D009F0722 /* AccountViewController.swift */; };
 		FC6D26C8272E6349009F0722 /* PersistentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6D26C7272E6349009F0722 /* PersistentManager.swift */; };
 		FC6D26CA272E6CCD009F0722 /* RealmNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6D26C9272E6CCD009F0722 /* RealmNote.swift */; };
+		FC7BD718273A749900FF89D4 /* ReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7BD717273A749900FF89D4 /* ReminderViewController.swift */; };
+		FC7BD741273AD4D500FF89D4 /* ReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7BD740273AD4D500FF89D4 /* ReminderCell.swift */; };
+		FC7F160B2730E9B600351576 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7F160A2730E9B600351576 /* ImageUploader.swift */; };
 		FC841F012723C710001118A2 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC841F002723C710001118A2 /* SideMenuController.swift */; };
+		FC97B72527304D2900BC2A82 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC97B72427304D2900BC2A82 /* DatabaseManager.swift */; };
 		FCB5C74B27294B6100005412 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB5C74A27294B6100005412 /* SettingsViewController.swift */; };
 		FCB5C74E27295A5900005412 /* NoteItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB5C74D27295A5900005412 /* NoteItem.swift */; };
 		FCB5C7502729940200005412 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB5C74F2729940200005412 /* NoteCell.swift */; };
@@ -32,7 +38,7 @@
 		FCF59295271E8FC000952150 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF59294271E8FC000952150 /* SignUpViewController.swift */; };
 		FCF59297271E8FCC00952150 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF59296271E8FCC00952150 /* HomeViewController.swift */; };
 		FCF5929A271ED58D00952150 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FCF59299271ED58D00952150 /* GoogleService-Info.plist */; };
-		FCF5929C271EE67C00952150 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF5929B271EE67C00952150 /* Reusable.swift */; };
+		FCF5929C271EE67C00952150 /* Extension View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF5929B271EE67C00952150 /* Extension View Controller.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +58,8 @@
 		FC3E2B7C27211B7000BF3E6F /* AuthenticationPracticeValidatation.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuthenticationPracticeValidatation.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC3E2B7E27211B7000BF3E6F /* AuthenticationPracticeValidatation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationPracticeValidatation.swift; sourceTree = "<group>"; };
 		FC3E2B8527214B1B00BF3E6F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		FC4F0BCA2739396C00D91CDA /* ArchiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveViewController.swift; sourceTree = "<group>"; };
+		FC4F0BCC2739980D00D91CDA /* DateTimePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimePickerViewController.swift; sourceTree = "<group>"; };
 		FC64D007272077020067BDCA /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		FC679D1627252C1F00ECD0C8 /* DashBoardContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardContainerViewController.swift; sourceTree = "<group>"; };
 		FC679D18272544EE00ECD0C8 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
@@ -60,7 +68,11 @@
 		FC6D26C5272C614D009F0722 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		FC6D26C7272E6349009F0722 /* PersistentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentManager.swift; sourceTree = "<group>"; };
 		FC6D26C9272E6CCD009F0722 /* RealmNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNote.swift; sourceTree = "<group>"; };
+		FC7BD717273A749900FF89D4 /* ReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderViewController.swift; sourceTree = "<group>"; };
+		FC7BD740273AD4D500FF89D4 /* ReminderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderCell.swift; sourceTree = "<group>"; };
+		FC7F160A2730E9B600351576 /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		FC841F002723C710001118A2 /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
+		FC97B72427304D2900BC2A82 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		FCB5C74A27294B6100005412 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		FCB5C74D27295A5900005412 /* NoteItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteItem.swift; sourceTree = "<group>"; };
 		FCB5C74F2729940200005412 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
@@ -76,7 +88,7 @@
 		FCF59294271E8FC000952150 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		FCF59296271E8FCC00952150 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		FCF59299271ED58D00952150 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		FCF5929B271EE67C00952150 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
+		FCF5929B271EE67C00952150 /* Extension View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension View Controller.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +140,8 @@
 			children = (
 				FC64D007272077020067BDCA /* NetworkManager.swift */,
 				FC6D26C7272E6349009F0722 /* PersistentManager.swift */,
+				FC97B72427304D2900BC2A82 /* DatabaseManager.swift */,
+				FC7F160A2730E9B600351576 /* ImageUploader.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -135,7 +149,7 @@
 		FC64D009272086050067BDCA /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				FCF5929B271EE67C00952150 /* Reusable.swift */,
+				FCF5929B271EE67C00952150 /* Extension View Controller.swift */,
 				FC3E2B8527214B1B00BF3E6F /* Constants.swift */,
 				FC679D18272544EE00ECD0C8 /* Protocols.swift */,
 			);
@@ -147,8 +161,42 @@
 			children = (
 				FCB5C74F2729940200005412 /* NoteCell.swift */,
 				FC6D26C3272BB4F5009F0722 /* SideMenuCell.swift */,
+				FC7BD740273AD4D500FF89D4 /* ReminderCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		FC7BD742273B8C2E00FF89D4 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				FCF5927F271E8F4300952150 /* ViewController.swift */,
+				FCF59292271E8FAC00952150 /* LoginViewController.swift */,
+				FCF59294271E8FC000952150 /* SignUpViewController.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		FC7BD743273B8C6B00FF89D4 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				FCF59296271E8FCC00952150 /* HomeViewController.swift */,
+				FC4F0BCA2739396C00D91CDA /* ArchiveViewController.swift */,
+				FC7BD717273A749900FF89D4 /* ReminderViewController.swift */,
+				FCB5C74A27294B6100005412 /* SettingsViewController.swift */,
+				FC6D26C5272C614D009F0722 /* AccountViewController.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		FC7BD744273B8CAE00FF89D4 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				FC679D1627252C1F00ECD0C8 /* DashBoardContainerViewController.swift */,
+				FC841F002723C710001118A2 /* SideMenuController.swift */,
+				FC69BE8B2727B6D500ED0BB6 /* AddItemViewController.swift */,
+				FC4F0BCC2739980D00D91CDA /* DateTimePickerViewController.swift */,
+			);
+			path = Other;
 			sourceTree = "<group>";
 		};
 		FCB5C74C27295A3D00005412 /* Model */ = {
@@ -202,15 +250,9 @@
 		FCF59298271E8FDB00952150 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				FCF5927F271E8F4300952150 /* ViewController.swift */,
-				FCF59292271E8FAC00952150 /* LoginViewController.swift */,
-				FCF59294271E8FC000952150 /* SignUpViewController.swift */,
-				FCF59296271E8FCC00952150 /* HomeViewController.swift */,
-				FC841F002723C710001118A2 /* SideMenuController.swift */,
-				FC679D1627252C1F00ECD0C8 /* DashBoardContainerViewController.swift */,
-				FC69BE8B2727B6D500ED0BB6 /* AddItemViewController.swift */,
-				FCB5C74A27294B6100005412 /* SettingsViewController.swift */,
-				FC6D26C5272C614D009F0722 /* AccountViewController.swift */,
+				FC7BD744273B8CAE00FF89D4 /* Other */,
+				FC7BD743273B8C6B00FF89D4 /* Menu */,
+				FC7BD742273B8C2E00FF89D4 /* Authentication */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -373,16 +415,22 @@
 				FCF59280271E8F4300952150 /* ViewController.swift in Sources */,
 				FCF5927C271E8F4300952150 /* AppDelegate.swift in Sources */,
 				FC679D19272544EE00ECD0C8 /* Protocols.swift in Sources */,
+				FC7BD741273AD4D500FF89D4 /* ReminderCell.swift in Sources */,
+				FC7BD718273A749900FF89D4 /* ReminderViewController.swift in Sources */,
 				FCF59293271E8FAC00952150 /* LoginViewController.swift in Sources */,
 				FC6D26CA272E6CCD009F0722 /* RealmNote.swift in Sources */,
 				FC69BE8C2727B6D500ED0BB6 /* AddItemViewController.swift in Sources */,
+				FC4F0BCB2739396C00D91CDA /* ArchiveViewController.swift in Sources */,
 				FC64D008272077020067BDCA /* NetworkManager.swift in Sources */,
+				FC4F0BCD2739980D00D91CDA /* DateTimePickerViewController.swift in Sources */,
 				FCF59297271E8FCC00952150 /* HomeViewController.swift in Sources */,
 				FC6D26C6272C614D009F0722 /* AccountViewController.swift in Sources */,
 				FCF5927E271E8F4300952150 /* SceneDelegate.swift in Sources */,
 				FCB5C74E27295A5900005412 /* NoteItem.swift in Sources */,
+				FC97B72527304D2900BC2A82 /* DatabaseManager.swift in Sources */,
+				FC7F160B2730E9B600351576 /* ImageUploader.swift in Sources */,
 				FCB5C74B27294B6100005412 /* SettingsViewController.swift in Sources */,
-				FCF5929C271EE67C00952150 /* Reusable.swift in Sources */,
+				FCF5929C271EE67C00952150 /* Extension View Controller.swift in Sources */,
 				FC841F012723C710001118A2 /* SideMenuController.swift in Sources */,
 				FC3E2B8627214B1B00BF3E6F /* Constants.swift in Sources */,
 				FC679D1727252C1F00ECD0C8 /* DashBoardContainerViewController.swift in Sources */,
